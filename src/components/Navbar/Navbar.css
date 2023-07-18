@@ -47,4 +47,16 @@
     color: var(--clr-light-light);
     box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
     transition: transform ease-in 0.5s;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 376px) {
+    .nav {
+        background: var(--clr-light-dark);
+    }
+    .login-btn:hover {
+        background: var(--clr-light-light);
+        transform: none;
+        box-shadow: none;
+    }
 }
