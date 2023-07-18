@@ -2,6 +2,8 @@ import { SHOW } from '../assets/constants'
 import Loader from '../components/Loader/Loader'
 import Error from '../components/Error/Error'
 import { useGetAllShowsQuery } from '../redux/services/netlify'
+import MainLanding from '../components/MainLanding/MainLanding'
+import Favorites from '../components/Favorites/Favorites'
 
 const LandingPage = () => {
     const { data, isFetching, error } = useGetAllShowsQuery([])
@@ -13,7 +15,10 @@ const LandingPage = () => {
 
     return (
         <>
-            <div className="landingPage">Landing Page</div>
+            <div className="landingPage">
+                <MainLanding />
+                <Favorites />
+            </div>
         </>
     )
 }

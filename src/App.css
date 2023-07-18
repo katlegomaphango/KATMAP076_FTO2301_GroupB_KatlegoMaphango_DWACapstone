@@ -27,4 +27,9 @@ body {
 
 .landingPage {
   background-color: cadetblue;
+  display: grid;
+  grid-template-columns: 70% 28%;
+  gap: 2%;
+  width: 90%;
+  margin: 0 auto;
 }
