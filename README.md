@@ -5,6 +5,8 @@ There is a total of 50 possible stories below that determine your final grade.
 
 Each completed story that is verified by lecturer will result in you receiving towards 2% your final mark. Completing all 50 will result in a mark of 100%. Note that user stories can be completed in any order. If you are stuck on a specific one perhaps try completing another one instead.
 
+***
+
 - [ ] is deployed to a custom Netlify URL
 
 - [ ] All views in the app display correct on the smallest mobile devices available “Iphone SE”. This can be emulated in Chrome Dev tools.
