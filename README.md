@@ -7,11 +7,11 @@ Each completed story that is verified by lecturer will result in you receiving t
 
 - [ ] is deployed to a custom Netlify URL
 
-white_check_mark All views in the app display correct on the smallest mobile devices available “Iphone SE”. This can be emulated in Chrome Dev tools.
+- [ ] All views in the app display correct on the smallest mobile devices available “Iphone SE”. This can be emulated in Chrome Dev tools.
 
-white_check_mark All favicon information has been created an added correctly via https://realfavicongenerator.net/ (you are welcome to use any free PNG image you find on https://www.flaticon.com/)
+- [ ] All favicon information has been created an added correctly via https://realfavicongenerator.net/ (you are welcome to use any free PNG image you find on https://www.flaticon.com/)
 
-white_check_mark All metatag information has been creataed and added via https://metatags.io/ (You are welcome to use any free image you find on https://unsplash.com/). Be mindful to manually replace all URL values (especially image URL) to absolute Netlify URL values (you will need to deploy to Netlify first)
+- [ ] metatag information has been creataed and added via https://metatags.io/ (You are welcome to use any free image you find on https://unsplash.com/). Be mindful to manually replace all URL values (especially image URL) to absolute Netlify URL values (you will need to deploy to Netlify first)
 
 white_check_mark All show data loaded via a fetch call from the https://podcast-api.netlify.app/shows
 white_check_mark All data is loaded a fetch and no endpoint-specific data is hardcoded
