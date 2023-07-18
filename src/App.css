@@ -19,3 +19,12 @@ body {
   font-family: 'Ubuntu', sans-serif;
   background: var(--clr-dark-gray);
 }
+
+.app-container {
+  width: 100%;
+  margin-top: 5rem;
+}
+
+.landingPage {
+  background-color: cadetblue;
+}

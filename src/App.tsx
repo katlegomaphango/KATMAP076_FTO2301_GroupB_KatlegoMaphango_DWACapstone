@@ -1,6 +1,7 @@
 
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
+import LandingPage from './pages/LandingPage.tsx'
 
 function App() {
 
@@ -9,7 +10,7 @@ function App() {
       <div className="app">
         <Navbar />
         <div className="app-container">
-
+          <LandingPage />
         </div>
       </div>
     </>
