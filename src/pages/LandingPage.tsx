@@ -16,7 +16,7 @@ const LandingPage = () => {
     return (
         <>
             <div className="landingPage">
-                <MainLanding />
+                <MainLanding allShows={allShows}/>
                 <Favorites />
             </div>
         </>
