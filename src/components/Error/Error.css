@@ -1,0 +1,15 @@
+.error {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 60vh;
+    padding: 10rem 0;
+}
+
+.error h1 {
+    font-weight: bolder;
+    font-size: 5rem;
+    color: var(--clr-light-light);
+    margin-top: 2rem;
+    text-align: center;
+}
