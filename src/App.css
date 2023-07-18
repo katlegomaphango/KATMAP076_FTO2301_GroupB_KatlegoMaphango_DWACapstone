@@ -14,3 +14,8 @@
   box-sizing: border-box;
   margin: 0;
 }
+
+body {
+  font-family: 'Ubuntu', sans-serif;
+  background: var(--clr-dark-gray);
+}
