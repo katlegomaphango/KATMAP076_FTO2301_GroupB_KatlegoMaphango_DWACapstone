@@ -1,1 +1,16 @@
+:root {
+  --clr-dark-dark: #163A5F;
+  --clr-dark-gray: #1D566E;
+  --clr-dark-light: #21ABA5;
+  --clr-dark-accent: #45EBA5;
 
+  --clr-light-dark: #212A3E;
+  --clr-light-gray: #9BA4B5;
+  --clr-light-light: #F1F6F9;
+  --clr-light-accent: #394867;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
