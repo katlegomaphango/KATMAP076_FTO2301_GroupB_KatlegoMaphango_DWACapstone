@@ -4,6 +4,7 @@ import Error from '../components/Error/Error'
 import { useGetAllShowsQuery } from '../redux/services/netlify'
 import MainLanding from '../components/MainLanding/MainLanding'
 import Favorites from '../components/Favorites/Favorites'
+import { Stack } from '@mui/material'
 
 const LandingPage = () => {
     const { data, isFetching, error } = useGetAllShowsQuery([])
@@ -15,10 +16,12 @@ const LandingPage = () => {
 
     return (
         <>
-            <div className="landingPage">
+            {/* className="landingPage" */}
+            <Stack direction={'row'} spacing={2} 
+                justifyContent="space-between" m={3}>
                 <MainLanding allShows={allShows}/>
                 <Favorites />
-            </div>
+            </Stack>
         </>
     )
 }

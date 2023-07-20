@@ -1,5 +1,7 @@
+import { Box } from '@mui/material'
 import { SHOW } from '../../assets/constants'
 import './MainLanding.css'
+import { theme } from '../../theme'
 
 const Slider = () => {
     return (
@@ -18,7 +20,8 @@ const MainLanding = (mainProps: mainProps) => {
 
     return (
         <>
-            <div className='mainLanding'>
+            {/* className='mainLanding' */}
+            <Box bgcolor={theme.palette.primary.dark} flex={3} p={2}>
                 <Slider />
 
                 <div className="main">
@@ -40,7 +43,7 @@ const MainLanding = (mainProps: mainProps) => {
                         {`${allShows}`}
                     </div>
                 </div>
-            </div>
+            </Box>
         </>
     )
 }
