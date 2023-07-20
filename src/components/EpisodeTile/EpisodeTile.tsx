@@ -1,7 +1,9 @@
-import { Box, Card, CardContent, Checkbox, IconButton, Typography, styled, useTheme } from "@mui/material"
-import { EPISODE } from "../../assets/constants"
-import { Favorite, FavoriteBorder, PlayArrow, Share, SkipNext, SkipPrevious, Pause } from "@mui/icons-material"
-import { useSelector, useDispatch } from "react-redux"
+import { Box, Card, CardContent, Checkbox, IconButton, Typography, styled } from "@mui/material"
+import { EPISODE, SEASON, SHOW } from "../../assets/constants"
+import { Favorite, FavoriteBorder, PlayArrow, Share } from "@mui/icons-material"
+import PlayPause from "../PlayPause/PlayPause"
+import { playPause, setActiveEpisode } from "../../redux/features/playerSlice"
+import { useDispatch } from "react-redux"
 
 const MyCard = styled(Card)({
     background: `
@@ -28,17 +30,28 @@ type PROPS = {
     episode: EPISODE,
     show: string,
     index: number,
+    isPlaying: boolean,
+    activeEpisode: EPISODE,
+    SeasonData: SEASON,
 }
 
 const EpisodeTile = (props: PROPS) => {
-    const { episode, show } = props
+    const { episode, show, isPlaying, activeEpisode, SeasonData, index } = props
 
     const dispatch = useDispatch()
-    const { activeEpisode, isPlaying } = useSelector((state) => state.player)
 
-    const theme = useTheme()
+    // const theme = useTheme()
 
     const seasonTxt = episode.episode.toString().length !== 1 ? `S${episode.episode}` : `SO${episode.episode}`
+
+    const handlePauseClick = () => {
+        dispatch(playPause(false))
+    }
+
+    const handlePlayClick = () => {
+        dispatch(setActiveEpisode({ episode, SeasonData, index}))
+        dispatch(playPause(true))
+    }
 
     return (
         <>
@@ -57,15 +70,18 @@ const EpisodeTile = (props: PROPS) => {
                     </CardContent>
                     <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                         <Box sx={{display: 'flex', alignItems: 'center', pl: 1, pb: 1}}>
-                            <IconButton aria-label="previous">
+                            {/* <IconButton aria-label="previous">
                                 {theme.direction === 'rtl' ? <SkipNext /> : <SkipPrevious />}
-                            </IconButton>
-                            <IconButton aria-label="play/pause">
-                                <PlayArrow sx={{height: 38, width: 38}} />
-                            </IconButton>
-                            <IconButton aria-label="next">
+                            </IconButton> */}
+                            <PlayPause episode={episode} 
+                                handlePause={handlePauseClick} 
+                                handlePlay={handlePlayClick}
+                                isPlaying={isPlaying}
+                                activeEpisode={activeEpisode}
+                                    />
+                            {/* <IconButton aria-label="next">
                                 {theme.direction === 'rtl' ? <SkipPrevious /> : <SkipNext />}
-                            </IconButton>
+                            </IconButton> */}
                         </Box>
                         <Box sx={{pr: 2}}>
                             <IconButton aria-label="add to favorites">

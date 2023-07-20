@@ -1,10 +1,10 @@
 
 export type INITIALSTATE = {
-    currentEpisode: [],
+    currentSeasonEpisodes: EPISODE[],
     currentIndex: number,
     isActive: boolean,
     isPlaying: boolean,
-    activeEpisode: object,
+    activeEpisode: EPISODE,
 }
 
 // https://podcast-api.netlify.app	

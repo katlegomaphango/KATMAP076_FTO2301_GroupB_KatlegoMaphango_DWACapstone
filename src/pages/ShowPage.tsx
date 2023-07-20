@@ -8,6 +8,7 @@ import { EPISODE, SEASON, SHOW } from "../assets/constants"
 import { ArrowBack } from "@mui/icons-material"
 import { useState } from "react"
 import EpisodeTile from "../components/EpisodeTile/EpisodeTile"
+import { useDispatch, useSelector } from "react-redux"
 
 const ShowHeader = styled(Paper)({
     height: '20rem',
@@ -52,11 +53,14 @@ type TabPanelProps = {
     index: number,
     value: number,
     episode: EPISODE,
-    show: string
+    show: string,
+    isPlaying: boolean,
+    activeEpisode: EPISODE,
+    SeasonData: SEASON
 }
 
 const CustomTabPanel = (props: TabPanelProps) => {
-    const { index, value, episode, show } = props
+    const { index, value, episode, show, isPlaying, activeEpisode, SeasonData } = props
 
     return (
         <>
@@ -66,7 +70,7 @@ const CustomTabPanel = (props: TabPanelProps) => {
                 id={`${index}`}
             >
                 <Box>
-                    {value === index && <EpisodeTile episode={episode} show={show} index={index} />}
+                    {value === index && <EpisodeTile episode={episode} show={show} index={index} isPlaying={isPlaying} activeEpisode={activeEpisode} SeasonData={SeasonData} />}
                     
                 </Box>
             </div>
@@ -79,6 +83,9 @@ const ShowPage = () => {
     const navigate = useNavigate()
     const { id } = useParams()
     const { data, isFetching, error} = useGetShowInfoQuery(id)
+
+    const dispatch = useDispatch()
+    const { activeEpisode, isPlaying } = useSelector((state) => state.player)
 
     if (isFetching) return <Loader />
     if (error) return <Error />
@@ -139,6 +146,9 @@ const ShowPage = () => {
                                             index={i}
                                             episode={se}
                                             show={ShowData.title}
+                                            isPlaying={isPlaying}
+                                            activeEpisode={activeEpisode}
+                                            SeasonData={item}
                                         />
                                     ))}
                                 </Box>

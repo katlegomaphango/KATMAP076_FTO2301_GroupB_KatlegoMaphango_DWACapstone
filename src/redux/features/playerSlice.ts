@@ -1,21 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { INITIALSTATE } from "../../assets/constants";
+import { EPISODE, INITIALSTATE, SEASON, SHOW } from "../../assets/constants";
 
 const initialState: INITIALSTATE = {
-    currentEpisode: [],
+    currentSeasonEpisodes: [],
     currentIndex: 0,
     isActive: false,
     isPlaying: false,
-    activeEpisode: {}
+    activeEpisode: {
+        description: '',
+        episode: 0,
+        file: '',
+        title: ''
+    }
 }
 
 const playerSlice = createSlice({
     name: 'player',
     initialState,
     reducers: {
-        setActiveEpisode: (state, action) => {
-            console.log(state)
-            console.log(action)
+        setActiveEpisode: (state, action: {type: string, payload: { index: number, episode: EPISODE, SeasonData: SEASON }}) => {
+            state.activeEpisode = action.payload.episode
+
+            if(action.payload?.SeasonData?.episodes) {
+                state.currentSeasonEpisodes = action.payload.SeasonData.episodes
+            }
+
+            state.currentIndex = action.payload.index
+            state.isActive = true
+
         },
         nextEpisode: (state, action) => {
             console.log(state)
@@ -25,9 +37,8 @@ const playerSlice = createSlice({
             console.log(state)
             console.log(action)
         },
-        playPause: (state, action) => {
-            console.log(state)
-            console.log(action)
+        playPause: (state, action: { type: string, payload: boolean}) => {
+            state.isPlaying = action.payload
         },
     }
 })
