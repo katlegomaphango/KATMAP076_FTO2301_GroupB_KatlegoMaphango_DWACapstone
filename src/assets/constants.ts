@@ -29,11 +29,13 @@ export type SHOW = {
     title: string;
     description: string;
     seasons: SEASON[];
+    image: string,
+    updated: string
 }
 
 export type SEASON = {
-    id: number;
-    title:string;
+    season: number;
+    title: string;
     image: string;
     episodes: EPISODE[];
 }
