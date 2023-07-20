@@ -1,6 +1,6 @@
 import { Box, Button, ButtonGroup, Card, CardContent, CardMedia, Divider, Paper, Stack, Typography, styled } from "@mui/material"
 import { MONTHS, PREVIEW, genresArray } from "../../assets/constants"
-import { Padding } from "@mui/icons-material"
+import { Link } from "react-router-dom"
 
 const StyledCard = styled(Card)({
     maxWidth: 300, 
@@ -39,6 +39,10 @@ const GenreBox = styled(Box)({
     marginTop: '1rem'
 })
 
+const StyledLink = styled(Link)({
+    textDecoration: 'none'
+})
+
 type CardProps = {
     show: PREVIEW
 }
@@ -53,44 +57,47 @@ const MyCard = (props: CardProps) => {
 
     return (
         <>
-            <StyledCard >
-                <CardMedia
-                    component="img"
-                    image={show.image}
-                    height={200}
-                    alt={`${show.title} image`}
-                />
-                <CardContent>
-                    <CardTitle variant="h5">
-                        {show.title}
-                    </CardTitle>
-                    <Stack direction='row' 
-                        divider={<Divider orientation="vertical" 
-                                        flexItem />}
-                        spacing={2}
-                        justifyContent='center'
-                    >
-                        <Item>
-                            {show.seasons} Season(s)
-                        </Item>
-                        <Item>
-                            {` ${date.getDay()} ${MONTHS[date.getMonth()]} ${date.getFullYear()}`}
-                        </Item>
-                    </Stack>
-                    <GenreBox>
-                        <Typography>
-                            Genre(s)
-                        </Typography>
-                        <ButtonGroup variant="text" aria-label="text button group" color="secondary">
-                            {genre.map((item) => (
-                                <Button key={item.id}>
-                                    {item.title}
-                                </Button>
-                            ))}
-                        </ButtonGroup>
-                    </GenreBox>
-                </CardContent>
-            </StyledCard>
+            <StyledLink to={`/show/${show.id}`}>
+                <StyledCard >
+                    <CardMedia
+                        component="img"
+                        image={show.image}
+                        height={200}
+                        alt={`${show.title} image`}
+                    />
+                    <CardContent>
+                        <CardTitle variant="h5">
+                            {show.title}
+                        </CardTitle>
+                        <Stack direction='row' 
+                            divider={<Divider orientation="vertical" 
+                                            flexItem />}
+                            spacing={2}
+                            justifyContent='center'
+                        >
+                            <Item>
+                                {show.seasons} Season(s)
+                            </Item>
+                            <Item>
+                                {` ${date.getDay()} ${MONTHS[date.getMonth()]} ${date.getFullYear()}`}
+                            </Item>
+                        </Stack>
+                        <GenreBox>
+                            <Typography>
+                                Genre(s)
+                            </Typography>
+                            <ButtonGroup variant="text" aria-label="text button group" color="secondary">
+                                {genre.map((item) => (
+                                    <Button key={item.id}>
+                                        {item.title}
+                                    </Button>
+                                ))}
+                            </ButtonGroup>
+                        </GenreBox>
+                    </CardContent>
+                </StyledCard>
+            </StyledLink>
+            
         </>
     )
 }
