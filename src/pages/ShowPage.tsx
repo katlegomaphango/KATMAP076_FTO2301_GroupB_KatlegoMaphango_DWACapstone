@@ -85,7 +85,7 @@ const ShowPage = () => {
     const { data, isFetching, error} = useGetShowInfoQuery(id)
 
     const dispatch = useDispatch()
-    const { activeEpisode, isPlaying } = useSelector((state) => state.player)
+    const { activeEpisode, isPlaying } = useSelector((state: any) => state.player)
 
     if (isFetching) return <Loader />
     if (error) return <Error />
