@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, Checkbox, IconButton, Typography, styled, useTheme } from "@mui/material"
 import { EPISODE } from "../../assets/constants"
-import { Favorite, FavoriteBorder, PlayArrow, Share, SkipNext, SkipPrevious } from "@mui/icons-material"
+import { Favorite, FavoriteBorder, PlayArrow, Share, SkipNext, SkipPrevious, Pause } from "@mui/icons-material"
 import { useSelector, useDispatch } from "react-redux"
 
 const MyCard = styled(Card)({
@@ -34,7 +34,7 @@ const EpisodeTile = (props: PROPS) => {
     const { episode, show } = props
 
     const dispatch = useDispatch()
-    // const {} = useSelector((state) => console.log(state.player))
+    const { activeEpisode, isPlaying } = useSelector((state) => state.player)
 
     const theme = useTheme()
 
