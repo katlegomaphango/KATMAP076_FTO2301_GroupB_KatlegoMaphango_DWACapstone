@@ -1,9 +1,15 @@
+import { EPISODE } from "../../assets/constants"
 
 
-const EpisodeTile = () => {
+type PROPS = { 
+    episode: EPISODE
+}
+
+const EpisodeTile = (props: PROPS) => {
+    const { episode } = props
     return (
         <>
-            <div>EpisodeTile</div>
+            <div>{episode.title}</div>
         </>
     )
 }
