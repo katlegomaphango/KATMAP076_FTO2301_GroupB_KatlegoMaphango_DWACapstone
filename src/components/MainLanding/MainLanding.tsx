@@ -1,7 +1,27 @@
-import { Box } from '@mui/material'
+import { Box, InputBase, TextField, styled } from '@mui/material'
 import { SHOW } from '../../assets/constants'
 import './MainLanding.css'
 import { theme } from '../../theme'
+
+const Search = styled('div')({
+    // backgroundColor: theme.palette.secondary.contrastText,
+    padding: '0',
+    borderRadius: '0.3rem',
+    width: '20rem'
+})
+
+const InputTheme = {
+    color: theme.palette.primary.contrastText,
+    input: {
+        color: theme.palette.secondary.light,
+    }
+}
+
+const StyledTextfield = styled(TextField)({
+    '& label.Mui-focused': {
+        color: theme.palette.primary.contrastText,
+    },
+})
 
 const Slider = () => {
     return (
@@ -29,7 +49,12 @@ const MainLanding = (mainProps: mainProps) => {
                         <h2>Discover Shows</h2>
                         <div className="main-top_header">
                             {/* <SearchBar /> */}
-                            <div>Search Bar here</div>
+                            <Search>
+                                <StyledTextfield label='Search...' 
+                                    variant='outlined' 
+                                    fullWidth
+                                    sx={InputTheme} />
+                            </Search>
                             <select onChange={() => ({})} value={''} className='allShows-sort'>
                                 <option value="">Sort By</option>
                                 <option value="A-Z">A-Z</option>
