@@ -13,7 +13,7 @@ export type INITIALSTATE = {
 
 export type PREVIEW = {
     description: string;
-    genreIds:    number[];
+    genres:    number[];
     id:          string;
     image:       string;
     seasons:     number;

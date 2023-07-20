@@ -1,4 +1,4 @@
-import { SHOW } from '../assets/constants'
+import { PREVIEW } from '../assets/constants'
 import Loader from '../components/Loader/Loader'
 import Error from '../components/Error/Error'
 import { useGetAllShowsQuery } from '../redux/services/netlify'
@@ -12,7 +12,7 @@ const LandingPage = () => {
     if (isFetching) return <Loader />
     if (error) return <Error />
     console.log(data)
-    const allShows: SHOW[] = data
+    const allShows: PREVIEW[] = data
 
     return (
         <>

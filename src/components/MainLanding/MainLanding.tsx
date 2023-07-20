@@ -1,7 +1,8 @@
-import { Box, InputBase, TextField, styled } from '@mui/material'
-import { SHOW } from '../../assets/constants'
+import { Box, TextField, styled } from '@mui/material'
+import { PREVIEW } from '../../assets/constants'
 import './MainLanding.css'
 import { theme } from '../../theme'
+import MyCard from '../MyCard/MyCard'
 
 const Search = styled('div')({
     // backgroundColor: theme.palette.secondary.contrastText,
@@ -32,7 +33,7 @@ const Slider = () => {
 }
 
 type mainProps = {
-    allShows: SHOW[]
+    allShows: PREVIEW[]
 }
 
 const MainLanding = (mainProps: mainProps) => {
@@ -65,7 +66,9 @@ const MainLanding = (mainProps: mainProps) => {
                         </div>
                     </div>
                     <div className="main-body">
-                        {`${allShows}`}
+                        {allShows.map((show) => (
+                            <MyCard key={show.id} show={show} />
+                        ))}
                     </div>
                 </div>
             </Box>
