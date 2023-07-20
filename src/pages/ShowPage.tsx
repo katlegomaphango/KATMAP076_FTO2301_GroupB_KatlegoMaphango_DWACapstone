@@ -51,11 +51,12 @@ const ShowDesc = styled(Typography)({
 type TabPanelProps = {
     index: number,
     value: number,
-    episode: EPISODE
+    episode: EPISODE,
+    show: string
 }
 
 const CustomTabPanel = (props: TabPanelProps) => {
-    const { index, value, episode } = props
+    const { index, value, episode, show } = props
 
     return (
         <>
@@ -65,7 +66,7 @@ const CustomTabPanel = (props: TabPanelProps) => {
                 id={`${index}`}
             >
                 <Box>
-                    {value === index && <EpisodeTile episode={episode} />}
+                    {value === index && <EpisodeTile episode={episode} show={show} index={index} />}
                     
                 </Box>
             </div>
@@ -84,7 +85,6 @@ const ShowPage = () => {
 
     const ShowData: SHOW = data
     const SeasonsData: SEASON[] = ShowData.seasons
-    console.log(SeasonsData[0].episodes)
 
     const handleTabChange = (e: any, newValue: number) => {
         setTabValue(newValue)
@@ -128,15 +128,17 @@ const ShowPage = () => {
                                 ))}
                             </Tabs>
                         </Box>
-                        <Box>
+                        <Box sx={{backgroundColor: 'red', display: 'flex', flexWrap: 'wrap', 
+                    gap: 2, pt: 2, pb: 2}}>
                             {SeasonsData.map((item) => (
-                                <Box key={item.season}>
+                                <Box key={item.season} >
                                     {item.episodes.map((se, i) => (
                                         <CustomTabPanel
                                             value={tabValue}
                                             key={se.episode}
                                             index={i}
                                             episode={se}
+                                            show={ShowData.title}
                                         />
                                     ))}
                                 </Box>
