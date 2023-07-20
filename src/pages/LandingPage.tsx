@@ -13,7 +13,6 @@ const LandingPage = () => {
 
     if (isFetching) return <Loader />
     if (error) return <Error />
-    console.log(data)
     const allShows: PREVIEW[] = data
 
     return (

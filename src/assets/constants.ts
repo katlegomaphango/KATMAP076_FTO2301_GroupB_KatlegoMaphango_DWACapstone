@@ -5,7 +5,6 @@ export type INITIALSTATE = {
     isActive: boolean,
     isPlaying: boolean,
     activeEpisode: object,
-    genreListId: string,
 }
 
 // https://podcast-api.netlify.app	
