@@ -7,7 +7,7 @@ const Search = styled('div')({
     // backgroundColor: theme.palette.secondary.contrastText,
     padding: '0',
     borderRadius: '0.3rem',
-    width: '20rem'
+    width: '50%'
 })
 
 const InputTheme = {
