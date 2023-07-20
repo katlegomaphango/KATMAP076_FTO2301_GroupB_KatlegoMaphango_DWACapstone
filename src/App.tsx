@@ -12,7 +12,7 @@ function App() {
       <ThemeProvider theme={theme}>
         {/* <div className="app"> */}
         <Box>
-          {/* <Navbar /> */}
+          <Navbar />
           <LandingPage />
           {/* <div className="app-container">
             <LandingPage />
