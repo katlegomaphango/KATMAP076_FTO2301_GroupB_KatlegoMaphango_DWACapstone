@@ -14,5 +14,14 @@ export const theme = createTheme({
             main: '#9BA4B5',
             contrastText: '#394867',
         },
-    }
+    },
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 425,
+            md: 768,
+            lg: 1024,
+            xl: 1440,
+        },
+    },
 })
