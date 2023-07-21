@@ -96,7 +96,7 @@ const MusicPlayer = () => {
                         appTime={appTime}
                         max={duration}
                         min={0}
-                        onInput={(event) => setSeekTime(event.target.value)}
+                        onInput={(event: any) => setSeekTime(event.target.value)}
                         setSeekTime={setSeekTime}
                         value={appTime}
                     />
