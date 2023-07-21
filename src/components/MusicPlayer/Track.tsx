@@ -1,9 +1,8 @@
 import { Box, Paper, styled } from "@mui/material"
 import { EPISODE } from "../../assets/constants"
+import { theme } from "../../theme"
 
 type PROPS = { 
-    isPlaying: boolean, 
-    isActive: boolean, 
     activeEpisode: EPISODE
 }
 
@@ -18,24 +17,27 @@ const TrackDetails = styled(Paper)({
     width: '100%',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    padding: 18,
+    fontWeight: 'bold',
+    fontSize: '1.2rem',
+    color: theme.palette.secondary.light,
+    background: `
+    linear-gradient(-135deg, 
+        var(--clr-dark-dark),
+        var(--clr-dark-gray))
+`,
 })
 
 const Track = (props: PROPS) => {
-    const { isPlaying, isActive, activeEpisode } = props
+    const { activeEpisode } = props
 
     return (
         <>
             <TrackBox>
-                <Box sx={{display: { xs: 'none', sm: 'block'}, height: 16, width: 16, mr: 4}}>
-                    img cont
-                </Box>
-                <Box sx={{width: '50%'}}>
-                    <TrackDetails color="primary">
-                        {activeEpisode?.title ? activeEpisode?.title : 'No active episode'}
-                    </TrackDetails>
+                <Box sx={{width: '60%'}}>
                     <TrackDetails color="secondary">
-                        {activeEpisode?.description ? activeEpisode?.description : 'No active episode'}
+                        {activeEpisode?.title ? activeEpisode?.title : 'No active episode'}
                     </TrackDetails>
                 </Box>
             </TrackBox>

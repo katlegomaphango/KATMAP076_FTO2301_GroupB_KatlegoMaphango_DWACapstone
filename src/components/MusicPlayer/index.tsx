@@ -79,7 +79,7 @@ const MusicPlayer = () => {
     return (
         <>
             <StyledBox sx={{ px: { xs: 12, sm: 8}}} >
-                <Track activeEpisode={activeEpisode} isActive={isActive} isPlaying={isPlaying} />
+                <Track activeEpisode={activeEpisode} />
                 <InnerBox>
                     <Controls
                         currentSeasonEpisodes={currentSeasonEpisodes}

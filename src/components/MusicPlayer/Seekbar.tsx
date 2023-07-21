@@ -12,6 +12,7 @@ type PROPS = {
 const StyledSeekbar = styled(Box)({
     flexDirection: 'row',
     alignItems: 'center',
+    background: 'pink'
 }) 
 
 const Seekbar = (props: PROPS) => {
@@ -35,29 +36,29 @@ const Seekbar = (props: PROPS) => {
                 </Button>
                 <Typography component='p'>{value === 0 ? '0:00' : getTime(value)}</Typography>
 
-                <Box sx={{ width: 250 }}>
+                <Box sx={{ width: 250, mx: 2, background: 'red' }}>
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs>
-                        <Slider
-                            value={typeof value === 'number' ? value : 0}
-                            onChange={onInput}
-                            min={min}
-                            max={max}
-                        />
+                            <Slider
+                                value={typeof value === 'number' ? value : 0}
+                                onChange={onInput}
+                                min={min}
+                                max={max}
+                            />
                         </Grid>
                         <Grid item>
-                        <Input
-                            value={value}
-                            size="small"
-                            onChange={onInput}
-                            onBlur={handleBlur}
-                            inputProps={{
-                            step: 10,
-                            min: 0,
-                            max: 100,
-                            type: 'number',
-                            }}
-                        />
+                            <Input
+                                value={value}
+                                size="small"
+                                onChange={onInput}
+                                onBlur={handleBlur}
+                                inputProps={{
+                                step: 10,
+                                min: 0,
+                                max: 100,
+                                type: 'number',
+                                }}
+                            />
                         </Grid>
                     </Grid>
                 </Box>
