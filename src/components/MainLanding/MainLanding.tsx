@@ -3,6 +3,7 @@ import { PREVIEW } from '../../assets/constants'
 import './MainLanding.css'
 import { theme } from '../../theme'
 import MyCard from '../MyCard/MyCard'
+import { useState } from 'react'
 
 const Search = styled('div')({
     // backgroundColor: theme.palette.secondary.contrastText,
@@ -38,6 +39,9 @@ type mainProps = {
 
 const MainLanding = (mainProps: mainProps) => {
     const { allShows } = mainProps
+    const [search, setSearch] = useState('')
+
+
 
     return (
         <>
@@ -54,7 +58,9 @@ const MainLanding = (mainProps: mainProps) => {
                                 <StyledTextfield label='Search...' 
                                     variant='outlined' 
                                     fullWidth
-                                    sx={InputTheme} />
+                                    sx={InputTheme} 
+                                    onChange={(event) => setSearch(event.target.value)}
+                                />
                             </Search>
                             <select onChange={() => ({})} value={''} className='allShows-sort'>
                                 <option value="">Sort By</option>
@@ -66,7 +72,9 @@ const MainLanding = (mainProps: mainProps) => {
                         </div>
                     </div>
                     <div className="main-body">
-                        {allShows.map((show) => (
+                        {allShows.filter((show) => {
+                            return search.toLowerCase() === '' ? show : show.title.toLowerCase().includes(search.toLowerCase())
+                        }).map((show) => (
                             <MyCard key={show.id} show={show} />
                         ))}
                     </div>
