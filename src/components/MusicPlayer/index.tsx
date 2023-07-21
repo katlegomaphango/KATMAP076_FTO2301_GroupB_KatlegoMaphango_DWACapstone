@@ -5,6 +5,7 @@ import Controls from "./Controls";
 import { useEffect, useState } from "react";
 import { nextEpisode, playPause, prevEpisode } from "../../redux/features/playerSlice";
 import { Box, styled } from "@mui/material";
+import Player from "./Player";
 
 const StyledBox = styled(Box)({
     position: 'relative',
@@ -27,6 +28,10 @@ const MusicPlayer = () => {
 
     const [repeat, setRepeat] = useState(false)
     const [shuffle, setShuffle] = useState(false)
+    const [duration, setDuration] = useState(0)
+    const [appTime, setAppTime] = useState(0)
+    const [seekTime, setSeekTime] = useState(0)
+    const [volume, setVolume] = useState(0.3)
 
     useEffect(() => {
         if (currentSeasonEpisodes.length)  dispatch(playPause(true))
@@ -59,6 +64,16 @@ const MusicPlayer = () => {
         }
     }
 
+    const handleOnloadedData = (event: React.SyntheticEvent<HTMLAudioElement, Event>) => {
+        const target = event.target as HTMLAudioElement
+        setDuration(target?.duration)
+    }
+
+    const handleOnTimeUpdate = (event: React.SyntheticEvent<HTMLAudioElement, Event>) => {
+        const target = event.target as HTMLAudioElement
+        setAppTime(target?.currentTime)
+    }
+
     return (
         <>
             <StyledBox sx={{ px: { xs: 12, sm: 8}}} >
@@ -74,6 +89,16 @@ const MusicPlayer = () => {
                         setRepeat={setRepeat}
                         setShuffle={setShuffle}
                         shuffle={shuffle}
+                    />
+                    <Player
+                        activeEpisode={activeEpisode}
+                        isPlaying={isPlaying}
+                        onEnded={handleNextEpisode}
+                        onLoadedData={(event: React.SyntheticEvent<HTMLAudioElement, Event>) => handleOnloadedData(event)}
+                        onTimeUpdate={(event: React.SyntheticEvent<HTMLAudioElement, Event>) => handleOnTimeUpdate(event)}
+                        repeat={repeat}
+                        seekTime={seekTime}
+                        volume={volume}
                     />
                 </InnerBox>
             </StyledBox>
