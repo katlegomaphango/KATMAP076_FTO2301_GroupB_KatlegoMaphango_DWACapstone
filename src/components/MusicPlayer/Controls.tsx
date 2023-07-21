@@ -24,7 +24,7 @@ const Controls = (props: PROPS) => {
             <StyledBox>
                 {
                     currentSeasonEpisodes?.length && 
-                    <IconButton onClick={() => handlePrevEpisode} sx={{width: 38}}>
+                    <IconButton onClick={handlePrevEpisode} sx={{width: 38}}>
                         <SkipPrevious />
                     </IconButton>
                 }
@@ -38,7 +38,7 @@ const Controls = (props: PROPS) => {
                 </IconButton>
                 {
                     currentSeasonEpisodes?.length && 
-                    <IconButton onClick={() => handleNextEpisode} sx={{width: 38}}>
+                    <IconButton onClick={handleNextEpisode} sx={{width: 38}}>
                         <SkipNext />
                     </IconButton>
                 }

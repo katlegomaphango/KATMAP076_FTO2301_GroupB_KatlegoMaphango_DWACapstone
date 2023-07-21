@@ -38,13 +38,14 @@ const MusicPlayer = () => {
     }, [currentIndex])
 
     const handlePrevEpisode = () => {
+        dispatch(playPause(false)) 
+
         if (currentIndex === 0) {
             dispatch(prevEpisode(currentSeasonEpisodes.length - 1))
         } else 
         {
             dispatch(prevEpisode(currentIndex - 1))
         }
-        dispatch(prevEpisode('pressed'))
     }
 
     const handlePlayPause = () => {
@@ -57,7 +58,12 @@ const MusicPlayer = () => {
     const handleNextEpisode = () => {
         dispatch(playPause(false)) 
 
-        dispatch(nextEpisode(Math.floor(Math.random() * currentSeasonEpisodes.length)))
+        if(currentIndex === currentSeasonEpisodes.length - 1) {
+            dispatch(nextEpisode(0))
+        }
+        else {
+            dispatch(nextEpisode(currentIndex + 1))
+        }
     }
 
     const handleOnloadedData = (event: React.SyntheticEvent<HTMLAudioElement, Event>) => {

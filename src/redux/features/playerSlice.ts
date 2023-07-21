@@ -27,19 +27,22 @@ const playerSlice = createSlice({
 
             state.currentIndex = action.payload.index
             state.isActive = true
+        },
+        nextEpisode: (state, action: { type: string, payload: number}) => {
+            state.activeEpisode = state.currentSeasonEpisodes[action.payload]
+            
+            state.currentIndex = action.payload
+            state.isActive = true
+        },
+        prevEpisode: (state, action: { type: string, payload: number}) => {
+            state.activeEpisode = state.currentSeasonEpisodes[action.payload]
 
-        },
-        nextEpisode: (state, action) => {
-            console.log(state)
-            console.log(action)
-        },
-        prevEpisode: (state, action) => {
-            console.log(state)
-            console.log(action)
+            state.currentIndex = action.payload
+            state.isActive = true
+            state.isPlaying = true
         },
         playPause: (state, action: { type: string, payload: boolean}) => {
             state.isPlaying = action.payload
-            console.log('play pause pressed')
         },
     }
 })
