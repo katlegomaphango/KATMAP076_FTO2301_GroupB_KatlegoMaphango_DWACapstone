@@ -6,7 +6,8 @@ const StyledBox = styled(Box)({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: '80%'
+    width: '50%',
+    background: 'blue',
 })
 
 type PROPS = { 
