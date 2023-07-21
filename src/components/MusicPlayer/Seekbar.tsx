@@ -1,4 +1,3 @@
-import { VolumeUp } from "@mui/icons-material"
 import { Box, Button, Grid, Input, Slider, Typography, styled } from "@mui/material"
 
 type PROPS = { 
@@ -38,9 +37,6 @@ const Seekbar = (props: PROPS) => {
 
                 <Box sx={{ width: 250 }}>
                     <Grid container spacing={2} alignItems="center">
-                        <Grid item>
-                        <VolumeUp />
-                        </Grid>
                         <Grid item xs>
                         <Slider
                             value={typeof value === 'number' ? value : 0}
