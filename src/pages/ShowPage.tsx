@@ -8,7 +8,7 @@ import { EPISODE, SEASON, SHOW } from "../assets/constants"
 import { ArrowBack } from "@mui/icons-material"
 import { useState } from "react"
 import EpisodeTile from "../components/EpisodeTile/EpisodeTile"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 
 const ShowHeader = styled(Paper)({
     height: '20rem',
@@ -84,7 +84,6 @@ const ShowPage = () => {
     const { id } = useParams()
     const { data, isFetching, error} = useGetShowInfoQuery(id)
 
-    const dispatch = useDispatch()
     const { activeEpisode, isPlaying } = useSelector((state: any) => state.player)
 
     if (isFetching) return <Loader />
