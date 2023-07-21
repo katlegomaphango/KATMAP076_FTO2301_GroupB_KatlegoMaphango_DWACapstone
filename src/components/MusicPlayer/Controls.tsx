@@ -12,9 +12,9 @@ const StyledBox = styled(Box)({
 type PROPS = { 
     isPlaying: boolean, 
     repeat: boolean, 
-    setRepeat: (temp: (prev: boolean) => void) => void, 
+    setRepeat: React.Dispatch<React.SetStateAction<boolean>>, 
     shuffle: boolean, 
-    setShuffle: (temp: (prev: boolean) => void) => void, 
+    setShuffle: React.Dispatch<React.SetStateAction<boolean>>, 
     currentSeasonEpisodes: EPISODE[], 
     handlePlayPause: () => void, 
     handlePrevEpisode: () => void, 
