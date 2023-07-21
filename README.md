@@ -17,36 +17,36 @@ Each completed story that is verified by lecturer will result in you receiving t
 
 ***
 
-- [ ] All show data loaded via a fetch call from the https://podcast-api.netlify.app/shows
-- [ ] data is loaded a fetch and no endpoint-specific data is hardcoded
-- [ ] When viewing a specific show data is loaded via fetch from individual show endpoint
-- [ ] There is a loading state while initial data is being loaded
-- [ ] There is a loading state while new data is being loaded
+- [x] All show data loaded via a fetch call from the https://podcast-api.netlify.app/shows
+- [x] data is loaded a fetch and no endpoint-specific data is hardcoded
+- [x] When viewing a specific show data is loaded via fetch from individual show endpoint
+- [x] There is a loading state while initial data is being loaded
+- [x] There is a loading state while new data is being loaded
 
 ***
 
-- [ ] User sees the name of all available shows on the platform
-- [ ] User sees shows broken down into seasons, sorted by number
-- [ ] User has a way to listen to any episode in a season for a show
-- [ ] User is able to see a view where only episodes for a specific selected season is shown
-- [ ] User is able to toggle between different seasons for the same show
+- [x] User sees the name of all available shows on the platform
+- [x] User sees shows broken down into seasons, sorted by number
+- [x] User has a way to listen to any episode in a season for a show
+- [x] User is able to see a view where only episodes for a specific selected season is shown
+- [x] User is able to toggle between different seasons for the same show
 
 ***
 
-- [ ] User sees preview image of shows when browsing
-- [ ] User sees the amount of season as number in a show when browsing
-- [ ] User sees a human-readable date to when a show was last updated
-- [ ] User sees what genres (as genre titles) a show is associated with when browsing
+- [x] User sees preview image of shows when browsing
+- [x] User sees the amount of season as number in a show when browsing
+- [x] User sees a human-readable date to when a show was last updated
+- [x] User sees what genres (as genre titles) a show is associated with when browsing
 
 ***
 
 - [ ] User sees a preview image of seasons for specific show
 - [ ] User sees the amount of episodes as number for a season
-- [ ] User are able to go back to a show view from an season-specific view
+- [x] User are able to go back to a show view from an season-specific view
 
 ***
 
-- [ ] User is able to mark specific episodes as favourites so that they can find them again
+- [x] User is able to mark specific episodes as favourites so that they can find them again
 - [ ] User can visit a view where they see all their favourites
 - [ ] User is able to see the associated show and season when episode in favourite
 - [ ] Related by season/show epsiodes are grouped together in favourites
