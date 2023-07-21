@@ -7,6 +7,7 @@ import { Box, styled } from "@mui/material";
 import Controls from "./Controls";
 import Player from "./Player";
 import Track from "./Track";
+import Seekbar from "./Seekbar";
 
 const StyledBox = styled(Box)({
     position: 'relative',
@@ -90,6 +91,14 @@ const MusicPlayer = () => {
                         setRepeat={setRepeat}
                         setShuffle={setShuffle}
                         shuffle={shuffle}
+                    />
+                    <Seekbar 
+                        appTime={appTime}
+                        max={duration}
+                        min={0}
+                        onInput={(event) => setSeekTime(event.target.value)}
+                        setSeekTime={setSeekTime}
+                        value={appTime}
                     />
                     <Player
                         activeEpisode={activeEpisode}
