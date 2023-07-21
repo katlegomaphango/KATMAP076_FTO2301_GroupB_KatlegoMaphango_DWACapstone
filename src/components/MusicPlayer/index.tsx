@@ -1,11 +1,12 @@
 
 
 import { useSelector, useDispatch } from "react-redux";
-import Controls from "./Controls";
 import { useEffect, useState } from "react";
 import { nextEpisode, playPause, prevEpisode } from "../../redux/features/playerSlice";
 import { Box, styled } from "@mui/material";
+import Controls from "./Controls";
 import Player from "./Player";
+import Track from "./Track";
 
 const StyledBox = styled(Box)({
     position: 'relative',
@@ -77,7 +78,7 @@ const MusicPlayer = () => {
     return (
         <>
             <StyledBox sx={{ px: { xs: 12, sm: 8}}} >
-                {/* track */}
+                <Track activeEpisode={activeEpisode} isActive={isActive} isPlaying={isPlaying} />
                 <InnerBox>
                     <Controls
                         currentSeasonEpisodes={currentSeasonEpisodes}
