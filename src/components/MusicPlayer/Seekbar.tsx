@@ -46,7 +46,7 @@ const Seekbar = (props: PROPS) => {
                                 max={max}
                             />
                         </Grid>
-                        <Grid item>
+                        {/* <Grid item>
                             <Input
                                 value={value}
                                 size="small"
@@ -59,7 +59,7 @@ const Seekbar = (props: PROPS) => {
                                 type: 'number',
                                 }}
                             />
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Box>
 

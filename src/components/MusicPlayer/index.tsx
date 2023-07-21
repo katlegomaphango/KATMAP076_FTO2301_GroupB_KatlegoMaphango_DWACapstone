@@ -28,8 +28,6 @@ const MusicPlayer = () => {
     const { activeEpisode, currentSeasonEpisodes, currentIndex, isActive, isPlaying } = useSelector((state: any) => state.player)
     const dispatch = useDispatch()
 
-    const [repeat, setRepeat] = useState(false)
-    const [shuffle, setShuffle] = useState(false)
     const [duration, setDuration] = useState(0)
     const [appTime, setAppTime] = useState(0)
     const [seekTime, setSeekTime] = useState(0)
@@ -42,11 +40,11 @@ const MusicPlayer = () => {
     const handlePrevEpisode = () => {
         if (currentIndex === 0) {
             dispatch(prevEpisode(currentSeasonEpisodes.length - 1))
-        } else if (shuffle) {
-            dispatch(prevEpisode(Math.floor(Math.random() * currentSeasonEpisodes.length)))
-        } else {
+        } else 
+        {
             dispatch(prevEpisode(currentIndex - 1))
         }
+        dispatch(prevEpisode('pressed'))
     }
 
     const handlePlayPause = () => {
@@ -59,11 +57,7 @@ const MusicPlayer = () => {
     const handleNextEpisode = () => {
         dispatch(playPause(false)) 
 
-        if(!shuffle) {
-            dispatch(nextEpisode((currentIndex + 1) % currentSeasonEpisodes.length))
-        } else {
-            dispatch(nextEpisode(Math.floor(Math.random() * currentSeasonEpisodes.length)))
-        }
+        dispatch(nextEpisode(Math.floor(Math.random() * currentSeasonEpisodes.length)))
     }
 
     const handleOnloadedData = (event: React.SyntheticEvent<HTMLAudioElement, Event>) => {
@@ -87,10 +81,6 @@ const MusicPlayer = () => {
                         handlePlayPause={handlePlayPause}
                         handlePrevEpisode={handlePrevEpisode}
                         isPlaying={isPlaying}
-                        repeat={repeat}
-                        setRepeat={setRepeat}
-                        setShuffle={setShuffle}
-                        shuffle={shuffle}
                     />
                     <Seekbar 
                         appTime={appTime}
@@ -106,7 +96,6 @@ const MusicPlayer = () => {
                         onEnded={handleNextEpisode}
                         onLoadedData={(event: React.SyntheticEvent<HTMLAudioElement, Event>) => handleOnloadedData(event)}
                         onTimeUpdate={(event: React.SyntheticEvent<HTMLAudioElement, Event>) => handleOnTimeUpdate(event)}
-                        repeat={repeat}
                         seekTime={seekTime}
                         volume={volume}
                     />

@@ -9,11 +9,10 @@ type PROPS = {
     onEnded:  React.ReactEventHandler<HTMLAudioElement> | undefined, 
     onTimeUpdate: React.ReactEventHandler<HTMLAudioElement> | undefined, 
     onLoadedData: React.ReactEventHandler<HTMLAudioElement> | undefined, 
-    repeat: boolean
 }
 
 const Player = (props: PROPS) => {
-    const { activeEpisode, isPlaying, volume, seekTime, onEnded, onTimeUpdate, onLoadedData, repeat } = props
+    const { activeEpisode, isPlaying, volume, seekTime, onEnded, onTimeUpdate, onLoadedData } = props
 
     const ref = useRef<HTMLAudioElement>(null)
 
@@ -40,7 +39,6 @@ const Player = (props: PROPS) => {
             <audio
                 src={activeEpisode?.file}
                 ref={ref}
-                loop={repeat}
                 onEnded={onEnded}
                 onTimeUpdate={onTimeUpdate}
                 onLoadedData={onLoadedData}
