@@ -1,8 +1,8 @@
 import './Navbar.css'
 import logo from '../../assets/meta/logo.png'
-import { AppBar, Avatar, Box, Button, Toolbar, Typography, styled } from '@mui/material'
+import { AppBar, Avatar, Button, Toolbar, Typography, styled } from '@mui/material'
 import { theme } from '../../theme'
-import { BorderColor, Login } from '@mui/icons-material'
+import { Login } from '@mui/icons-material'
 
 const LogoText = styled(Typography)({
     fontSize: '1.5rem',
@@ -30,6 +30,7 @@ const AppToolbar = styled(Toolbar)({
 // }))
 
 const Navbar = () => {
+
     return (
         <>
             <AppBar position='sticky'>
@@ -46,19 +47,6 @@ const Navbar = () => {
                     </LoginButton>
                 </AppToolbar>
             </AppBar>
-            {/* <nav className='nav'>
-                <div className="nav-container">
-                    <div className="logo">
-                        <img className='logo-img' src={logo} alt="" />
-                        <h1 className="logo-text">Plug 'n Play</h1>
-                    </div>
-                    <div className="login">
-                        <button className="btn login-btn">
-                            Log in
-                        </button>
-                    </div>
-                </div>
-            </nav> */}
         </>
     )
 }
