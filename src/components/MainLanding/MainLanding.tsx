@@ -40,8 +40,13 @@ type mainProps = {
 const MainLanding = (mainProps: mainProps) => {
     const { allShows } = mainProps
     const [search, setSearch] = useState('')
+    const [allShowsData, setAllShowsData] = useState(allShows)
 
+    const handleSortEvent = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        console.log(event.target.value)
 
+        
+    }
 
     return (
         <>
@@ -62,7 +67,7 @@ const MainLanding = (mainProps: mainProps) => {
                                     onChange={(event) => setSearch(event.target.value)}
                                 />
                             </Search>
-                            <select onChange={() => ({})} value={''} className='allShows-sort'>
+                            <select onChange={(event) => handleSortEvent(event)}  className='allShows-sort'>
                                 <option value="">Sort By</option>
                                 <option value="A-Z">A-Z</option>
                                 <option value="Z-A">Z-A</option>
@@ -72,7 +77,7 @@ const MainLanding = (mainProps: mainProps) => {
                         </div>
                     </div>
                     <div className="main-body">
-                        {allShows.filter((show) => {
+                        {allShowsData.filter((show) => {
                             return search.toLowerCase() === '' ? show : show.title.toLowerCase().includes(search.toLowerCase())
                         }).map((show) => (
                             <MyCard key={show.id} show={show} />
