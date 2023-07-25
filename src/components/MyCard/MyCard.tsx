@@ -3,8 +3,8 @@ import { MONTHS, PREVIEW, genresArray } from "../../assets/constants"
 import { Link } from "react-router-dom"
 
 const StyledCard = styled(Card)({
-    maxWidth: 300, 
-    minWidth: 300,
+    maxWidth: 250, 
+    minWidth: 200,
     background: `
         linear-gradient(135deg, 
             var(--clr-dark-dark),
@@ -57,7 +57,7 @@ const MyCard = (props: CardProps) => {
 
     return (
         <>
-            <StyledLink to={`/show/${show.id}`}>
+            <StyledLink to={`/home/show/${show.id}`}>
                 <StyledCard >
                     <CardMedia
                         component="img"
