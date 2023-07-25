@@ -17,10 +17,10 @@ const MainBox = styled(Box)({
     display: 'grid',
     gridTemplateColumns: '68% 30%',
     gap: '2%',
-    margin: 25,
+    margin: 20,
 })
 
-const Home = (props: PROPS) => {
+const HomeContent = (props: PROPS) => {
     const { token } = props
     const { data, isFetching, error } = useGetAllShowsQuery([])
 
@@ -30,13 +30,25 @@ const Home = (props: PROPS) => {
 
     return (
         <>
-            <Navbar token={token} />
-            <MainBox>
+            <Box>
                 <MainLanding allShows={allShows}/>
-                <Favorites token={token} />
-            </MainBox>
+            </Box>
         </>
     )
 }
 
-export default Home
+{/* <ThemeProvider theme={theme}>
+        <Box>
+          <Navbar />
+          <LandingPage />
+          {
+            activeEpisode?.title && (
+              <PlayerBox>
+                <MusicPlayer />
+              </PlayerBox>
+            )
+          }
+        </Box>
+      </ThemeProvider> */}
+
+export default HomeContent
