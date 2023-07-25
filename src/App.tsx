@@ -6,6 +6,12 @@ import LandingPage from './pages/LandingPage.tsx'
 import { theme } from './theme.ts'
 import { useSelector } from 'react-redux'
 import MusicPlayer from "./components/MusicPlayer"
+import { Route, Routes } from 'react-router-dom'
+import Login from './pages/LoginPage.tsx'
+import SignUp from './pages/SignUpPage.tsx'
+import Home from './pages/LandingPage.tsx'
+import ShowPage from './pages/ShowPage.tsx'
+import { useEffect, useState } from 'react'
 
 const PlayerBox = styled(Box)({
   position: 'sticky',
@@ -27,17 +33,37 @@ const PlayerBox = styled(Box)({
 
 function App() {
   const { activeEpisode } = useSelector((state: any) => state.player)
+  const [token, setToken] = useState({})
+
+  if(token) {
+    sessionStorage.setItem('token', JSON.stringify(token))
+  }
+
+  useEffect(() => {
+    if(sessionStorage.getItem('token')) {
+      const data = JSON.parse(sessionStorage.getItem('token'))
+      setToken(data)
+    }
+  }, [])
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        {/* <div className="app"> */}
+      <Routes>
+        <Route path='/' element={<Login setToken={setToken} />} />
+        <Route path='/signup' element={<SignUp />} />
+        {token ? ( <div>
+              <Route path='/home' element={<Home token={token} />} />
+              <Route path='/show/:id' element={<ShowPage />} />
+            </div>
+          ) : ('')
+        }
+      </Routes>
+
+
+      {/* <ThemeProvider theme={theme}>
         <Box>
           <Navbar />
           <LandingPage />
-          {/* <div className="app-container">
-            <LandingPage />
-          </div> */}
           {
             activeEpisode?.title && (
               <PlayerBox>
@@ -46,8 +72,7 @@ function App() {
             )
           }
         </Box>
-      </ThemeProvider>
-      
+      </ThemeProvider> */}
     </>
   )
 }
