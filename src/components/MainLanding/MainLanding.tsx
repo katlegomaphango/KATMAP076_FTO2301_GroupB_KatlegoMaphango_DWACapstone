@@ -1,4 +1,4 @@
-import { Box, TextField, styled } from '@mui/material'
+import { Box, TextField, Typography, styled } from '@mui/material'
 import { PREVIEW } from '../../assets/constants'
 import './MainLanding.css'
 import { theme } from '../../theme'
@@ -27,10 +27,25 @@ const StyledTextfield = styled(TextField)({
     },
 })
 
+const StyledDiscoverText = styled(Typography)({
+    fontSize: '2.5rem',
+    fontWeight: 'bold',
+    marginTop: '3rem',
+    marginBottom: '3rem',
+})
+
+const StyledLatestText = styled(Typography)({
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    marginBottom: '2rem',
+    textAlign: 'center'
+})
+
 const StyledBox = styled(Box)({
-    maxWidth: '100%',
     border: '1px solid black',
-    padding: 10
+    padding: 5,
+    borderRadius: 10,
+    borderColor: theme.palette.primary.contrastText,
 })
 
 const Slider = (props: {shows: PREVIEW[]}) => {
@@ -56,7 +71,7 @@ const Slider = (props: {shows: PREVIEW[]}) => {
 
     return (
         <div style={{width: '100%'}}>
-            <h2>Latest updated shows...</h2>
+            <StyledLatestText>Latest updated shows...</StyledLatestText>
             <StyledBox>
                 <Carousel responsive={responsive}
                     swipeable={false}
@@ -90,21 +105,20 @@ const MainLanding = (mainProps: mainProps) => {
     const handleSortEvent = (event: React.ChangeEvent<HTMLSelectElement>) => {
         console.log(event.target.value)
 
-        
+
     }
 
     return (
         <>
-            {/* className='mainLanding' */}
-            <Box bgcolor={theme.palette.primary.dark} flex={3} p={2}>
-                <div style={{maxWidth: '80rem'}}>
+            <Box bgcolor={theme.palette.primary.dark} p={4}>
+                <div>
                     <Slider shows={allShowsData} />
                 </div>
                 
 
                 <div className="main">
                     <div className="main-top">
-                        <h2>Discover Shows</h2>
+                        <StyledDiscoverText>Discover Shows</StyledDiscoverText>
                         <div className="main-top_header">
                             {/* <SearchBar /> */}
                             <Search>
