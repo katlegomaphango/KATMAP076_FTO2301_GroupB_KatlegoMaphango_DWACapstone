@@ -9,7 +9,7 @@ import MusicPlayer from "./components/MusicPlayer"
 import { Route, Routes } from 'react-router-dom'
 import Login from './pages/LoginPage.tsx'
 import SignUp from './pages/SignUpPage.tsx'
-import Home from './pages/LandingPage.tsx'
+import HomeLayout from './pages/HomePage.tsx'
 import ShowPage from './pages/ShowPage.tsx'
 import { useEffect, useState } from 'react'
 
@@ -48,16 +48,26 @@ function App() {
 
   return (
     <>
+      <Navbar token={token} />
+
       <Routes>
         <Route path='/' element={<Login setToken={setToken} />} />
         <Route path='/signup' element={<SignUp />} />
-        {token ? ( <Route path='/home' element={<Home token={token} />} />
+        {Object.keys(token).length !== 0 ? ( <Route path='/home' element={<HomeLayout token={token} />} />
           ) : ('')
         }
-        {token ? ( <Route path='/show/:id' element={<ShowPage />} />
+        {Object.keys(token).length !== 0 ? ( <Route path='/home/show/:id' element={<ShowPage token={token} />} />
           ) : ('')
         }
       </Routes>
+
+      {
+          activeEpisode?.title && (
+          <PlayerBox>
+              <MusicPlayer />
+          </PlayerBox>
+          )
+      }
     </>
   )
 }
