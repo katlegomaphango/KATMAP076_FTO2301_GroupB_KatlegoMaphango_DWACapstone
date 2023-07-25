@@ -5,7 +5,11 @@ import { useEffect } from 'react'
 import { supabase } from '../../lib/supabaseApi'
 import { Favorite } from '@mui/icons-material'
 
-const Favorites = () => {
+type PROPS = {
+    token: {}
+}
+
+const Favorites = (props: PROPS) => {
     let favData: any = []
 
     useEffect(()=>{
