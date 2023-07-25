@@ -51,10 +51,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Login setToken={setToken} />} />
         <Route path='/signup' element={<SignUp />} />
-        {token ? ( <div>
-              <Route path='/home' element={<Home token={token} />} />
-              <Route path='/show/:id' element={<ShowPage />} />
-            </div>
+        {token ? ( <Route path='/home' element={<Home token={token} />} />
+          ) : ('')
+        }
+        {token ? ( <Route path='/show/:id' element={<ShowPage />} />
           ) : ('')
         }
       </Routes>
