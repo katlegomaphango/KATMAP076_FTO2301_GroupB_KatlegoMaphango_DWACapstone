@@ -27,7 +27,7 @@ const Favorites = (props: PROPS) => {
 
     return (
         <>
-            <Box bgcolor={theme.palette.primary.dark} flex={1} p={2}
+            <Box bgcolor={theme.palette.primary.dark}
                     sx={{display: {xs: 'none', sm: 'block'}}}>
                 <Box>
                     <Box sx={{display: 'flex', alignItems: 'center'}}>
