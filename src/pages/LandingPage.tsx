@@ -4,7 +4,7 @@ import Error from '../components/Error/Error'
 import { useGetAllShowsQuery } from '../redux/services/netlify'
 import MainLanding from '../components/MainLanding/MainLanding'
 import Favorites from '../components/Favorites/Favorites'
-import { Stack } from '@mui/material'
+import { Box, Stack, styled } from '@mui/material'
 import { Route, Routes } from 'react-router-dom'
 import ShowPage from './ShowPage'
 import Navbar from '../components/Navbar/Navbar'
@@ -12,6 +12,13 @@ import Navbar from '../components/Navbar/Navbar'
 type PROPS = {
     token: {}
 }
+
+const MainBox = styled(Box)({
+    display: 'grid',
+    gridTemplateColumns: '68% 30%',
+    gap: '2%',
+    margin: 25,
+})
 
 const Home = (props: PROPS) => {
     const { token } = props
@@ -24,11 +31,10 @@ const Home = (props: PROPS) => {
     return (
         <>
             <Navbar token={token} />
-            <Stack direction={'row'} spacing={2} 
-                justifyContent="space-between" m={3}>
+            <MainBox>
                 <MainLanding allShows={allShows}/>
-                <Favorites />
-            </Stack>
+                <Favorites token={token} />
+            </MainBox>
         </>
     )
 }
