@@ -7,8 +7,14 @@ import Favorites from '../components/Favorites/Favorites'
 import { Stack } from '@mui/material'
 import { Route, Routes } from 'react-router-dom'
 import ShowPage from './ShowPage'
+import Navbar from '../components/Navbar/Navbar'
 
-const LandingPage = () => {
+type PROPS = {
+    token: {}
+}
+
+const Home = (props: PROPS) => {
+    const { token } = props
     const { data, isFetching, error } = useGetAllShowsQuery([])
 
     if (isFetching) return <Loader />
@@ -17,18 +23,14 @@ const LandingPage = () => {
 
     return (
         <>
-            {/* className="landingPage" */}
+            <Navbar token={token} />
             <Stack direction={'row'} spacing={2} 
                 justifyContent="space-between" m={3}>
-                <Routes>
-                    <Route path='/' element={<MainLanding allShows={allShows}/>} />
-                    <Route path='/show/:id' element={<ShowPage />} />
-                </Routes>
-                {/* <MainLanding allShows={allShows}/> */}
+                <MainLanding allShows={allShows}/>
                 <Favorites />
             </Stack>
         </>
     )
 }
 
-export default LandingPage
+export default Home
