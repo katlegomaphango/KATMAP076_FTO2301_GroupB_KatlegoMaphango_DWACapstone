@@ -2,7 +2,8 @@ import './Navbar.css'
 import logo from '../../assets/meta/logo.png'
 import { AppBar, Avatar, Button, Toolbar, Typography, styled } from '@mui/material'
 import { theme } from '../../theme'
-import { Login } from '@mui/icons-material'
+import { Login, Logout } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
 
 const LogoText = styled(Typography)({
     fontSize: '1.5rem',
@@ -29,7 +30,19 @@ const AppToolbar = styled(Toolbar)({
 //     color: theme.palette.primary.light
 // }))
 
-const Navbar = () => {
+type PROPS = {
+    token: {}
+}
+
+const Navbar = (props: PROPS) => {
+    const { token } = props
+    const navigate = useNavigate()
+    console.log(token)
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('token')
+        navigate('/')
+    }
 
     return (
         <>
@@ -41,9 +54,9 @@ const Navbar = () => {
                             Plug 'n Play
                         </LogoText>
                     </Toolbar>
-                    <LoginButton variant="outlined">
-                        <Login />
-                        <Typography ml={1} sx={{display: {xs: 'none', sm: 'block'}}}>Login</Typography>
+                    <LoginButton variant="outlined" onClick={handleLogout}>
+                        <Logout />
+                        <Typography ml={1} sx={{display: {xs: 'none', sm: 'block'}}}>Logout</Typography>
                     </LoginButton>
                 </AppToolbar>
             </AppBar>
