@@ -23,6 +23,8 @@ const Login = (props: PROPS) => {
         })
     }
 
+    console.log(formData)
+
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         
