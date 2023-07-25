@@ -58,21 +58,6 @@ function App() {
           ) : ('')
         }
       </Routes>
-
-
-      {/* <ThemeProvider theme={theme}>
-        <Box>
-          <Navbar />
-          <LandingPage />
-          {
-            activeEpisode?.title && (
-              <PlayerBox>
-                <MusicPlayer />
-              </PlayerBox>
-            )
-          }
-        </Box>
-      </ThemeProvider> */}
     </>
   )
 }
