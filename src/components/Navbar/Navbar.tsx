@@ -54,10 +54,23 @@ const Navbar = (props: PROPS) => {
                             Plug 'n Play
                         </LogoText>
                     </Toolbar>
-                    <LoginButton variant="outlined" onClick={handleLogout}>
+                    {
+                        Object.keys(token).length === 0 ? (
+                            <LoginButton variant="outlined" onClick={() => {navigate('/')}}>
+                                <Login />
+                                <Typography ml={1} sx={{display: {xs: 'none', sm: 'block'}}}>Login</Typography>
+                            </LoginButton>
+                        ) : (
+                            <LoginButton variant="outlined" onClick={handleLogout}>
+                                <Logout />
+                                <Typography ml={1} sx={{display: {xs: 'none', sm: 'block'}}}>Logout</Typography>
+                            </LoginButton>
+                        )
+                    }
+                    {/* <LoginButton variant="outlined" onClick={handleLogout}>
                         <Logout />
                         <Typography ml={1} sx={{display: {xs: 'none', sm: 'block'}}}>Logout</Typography>
-                    </LoginButton>
+                    </LoginButton> */}
                 </AppToolbar>
             </AppBar>
         </>
