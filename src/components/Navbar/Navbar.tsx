@@ -24,12 +24,6 @@ const AppToolbar = styled(Toolbar)({
     justifyContent: 'space-between'
 })
 
-// const LogoText = styled(Typography)(({theme})=>({
-//     fontSize: '1.5rem',
-//     fontWeight: 'bold',
-//     color: theme.palette.primary.light
-// }))
-
 type PROPS = {
     token: {}
 }
@@ -37,7 +31,6 @@ type PROPS = {
 const Navbar = (props: PROPS) => {
     const { token } = props
     const navigate = useNavigate()
-    console.log(token)
 
     const handleLogout = () => {
         sessionStorage.removeItem('token')
@@ -67,10 +60,6 @@ const Navbar = (props: PROPS) => {
                             </LoginButton>
                         )
                     }
-                    {/* <LoginButton variant="outlined" onClick={handleLogout}>
-                        <Logout />
-                        <Typography ml={1} sx={{display: {xs: 'none', sm: 'block'}}}>Logout</Typography>
-                    </LoginButton> */}
                 </AppToolbar>
             </AppBar>
         </>
