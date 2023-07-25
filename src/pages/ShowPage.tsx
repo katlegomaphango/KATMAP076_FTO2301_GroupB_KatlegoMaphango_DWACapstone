@@ -53,7 +53,7 @@ type TabPanelProps = {
     index: number,
     value: number,
     episode: EPISODE,
-    show: string,
+    show: SHOW,
     isPlaying: boolean,
     activeEpisode: EPISODE,
     SeasonData: SEASON
@@ -95,6 +95,8 @@ const ShowPage = () => {
     const handleTabChange = (e: any, newValue: number) => {
         setTabValue(newValue)
     }
+
+    console.log(ShowData)
 
     return (
         <>
@@ -144,7 +146,7 @@ const ShowPage = () => {
                                             key={se.episode}
                                             index={i}
                                             episode={se}
-                                            show={ShowData.title}
+                                            show={ShowData}
                                             isPlaying={isPlaying}
                                             activeEpisode={activeEpisode}
                                             SeasonData={item}
