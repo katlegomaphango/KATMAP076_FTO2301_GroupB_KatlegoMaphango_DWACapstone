@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { supabase } from "../lib/supabaseApi"
 
 
 const SignUp = () => {
@@ -9,11 +10,25 @@ const SignUp = () => {
     })
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-
+        setFormData((prev) => {
+            return {
+                ...prev,
+                [event.target.name]: event.target.value
+            }
+        })
     }
 
     const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        
+        const {data, error} = await supabase.auth.signUp({
+            email: formData.email,
+            password: formData.password,
+        })
 
+        if(error) throw error
+        if(data) console.log(data)
+        alert('check email for err link')
     }
 
 
