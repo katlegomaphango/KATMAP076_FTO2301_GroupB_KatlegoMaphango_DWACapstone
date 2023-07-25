@@ -9,6 +9,7 @@ import { ArrowBack } from "@mui/icons-material"
 import { useState } from "react"
 import EpisodeTile from "../components/EpisodeTile/EpisodeTile"
 import { useSelector } from "react-redux"
+import Favorites from "../components/Favorites/Favorites"
 
 const ShowHeader = styled(Paper)({
     height: '20rem',
@@ -59,6 +60,17 @@ type TabPanelProps = {
     SeasonData: SEASON
 }
 
+const MainBox = styled(Box)({
+    display: 'grid',
+    gridTemplateColumns: '68% 30%',
+    gap: '2%',
+    margin: 20,
+})
+
+type PROPS = {
+    token: {}
+}
+
 const CustomTabPanel = (props: TabPanelProps) => {
     const { index, value, episode, show, isPlaying, activeEpisode, SeasonData } = props
 
@@ -78,7 +90,8 @@ const CustomTabPanel = (props: TabPanelProps) => {
     )
 }
 
-const ShowPage = () => {
+const ShowPage = (props: PROPS) => {
+    const { token } = props
     const [tabValue, setTabValue] = useState(0)
     const navigate = useNavigate()
     const { id } = useParams()
@@ -99,8 +112,8 @@ const ShowPage = () => {
     console.log(ShowData)
 
     return (
-        <>
-            <Box bgcolor={theme.palette.primary.dark} flex={3} p={2}>
+        <MainBox>
+            <Box bgcolor={theme.palette.primary.dark}>
                 <Box>
                     <ShowHeader variant="outlined" square >
                         <ImageBox>
@@ -159,7 +172,8 @@ const ShowPage = () => {
                 </Box>
                 
             </Box>
-        </>
+            <Favorites token={token} />
+        </MainBox>
     )
 }
 
