@@ -4,6 +4,7 @@ import { Favorite, FavoriteBorder, PlayArrow, Share } from "@mui/icons-material"
 import PlayPause from "../PlayPause/PlayPause"
 import { playPause, setActiveEpisode } from "../../redux/features/playerSlice"
 import { useDispatch } from "react-redux"
+import { supabase } from "../../lib/supabaseApi"
 
 const MyCard = styled(Card)({
     background: `
@@ -28,7 +29,7 @@ const ShowName = styled(Typography)({
 
 type PROPS = { 
     episode: EPISODE,
-    show: string,
+    show: SHOW,
     index: number,
     isPlaying: boolean,
     activeEpisode: EPISODE,
@@ -53,6 +54,23 @@ const EpisodeTile = (props: PROPS) => {
         dispatch(playPause(true))
     }
 
+    const handleLiked = async () => {
+        const { error } = await supabase
+        .from('favorites')
+        .insert({ 
+            created_at: new Date(),
+            show_id: show.id,
+            season_id: SeasonData.season,
+            episode_id: episode.episode,
+            description: episode.description,
+            file: episode.file,
+            title: episode.title,
+            liked: true,
+        })
+        if(error) throw error
+        console.log('liked ep')
+    }
+
     return (
         <>
             <MyCard>
@@ -62,7 +80,7 @@ const EpisodeTile = (props: PROPS) => {
                             {episode.title}
                         </EpTitle>
                         <ShowName variant="subtitle1" color='text.secondary'>
-                            {show}
+                            {show.title}
                         </ShowName>
                         <Typography variant="subtitle1" color='text.secondary' component='div'>
                             {seasonTxt} | {`EP${episode.episode}`}
@@ -84,7 +102,7 @@ const EpisodeTile = (props: PROPS) => {
                             </IconButton> */}
                         </Box>
                         <Box sx={{pr: 2}}>
-                            <IconButton aria-label="add to favorites">
+                            <IconButton aria-label="add to favorites" onClick={() => handleLiked()}>
                                 <Checkbox color="success" icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
                             </IconButton>
                             <IconButton aria-label="share">

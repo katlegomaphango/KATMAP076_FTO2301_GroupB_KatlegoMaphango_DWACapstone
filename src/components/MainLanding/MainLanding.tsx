@@ -4,6 +4,8 @@ import './MainLanding.css'
 import { theme } from '../../theme'
 import MyCard from '../MyCard/MyCard'
 import { useState } from 'react'
+import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
 
 const Search = styled('div')({
     // backgroundColor: theme.palette.secondary.contrastText,
@@ -25,11 +27,54 @@ const StyledTextfield = styled(TextField)({
     },
 })
 
-const Slider = () => {
+const StyledBox = styled(Box)({
+    maxWidth: '100%',
+    border: '1px solid black',
+    padding: 10
+})
+
+const Slider = (props: {shows: PREVIEW[]}) => {
+    const { shows } = props
+
+    const responsive = {
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 3,
+            slidesToSlide: 3
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 768 },
+            items: 2,
+            slidesToSlide: 2
+        },
+        mobile: {
+            breakpoint: { max: 767, min: 464 },
+            items: 1,
+            slidesToSlide: 1
+        }
+    }
+
     return (
-        <>
-            <div>Slider</div>
-        </>
+        <div style={{width: '100%'}}>
+            <h2>Latest updated shows...</h2>
+            <StyledBox>
+                <Carousel responsive={responsive}
+                    swipeable={false}
+                    draggable={false}
+                    showDots={true}
+                    infinite={true}
+                    autoPlay={true}
+                    partialVisbile={false}
+                    dotListClass="custom-dot-list-style"
+                >
+                    {shows.slice(0,5).map((show) => (
+                        <div key={show.id} className='slider'>
+                            <MyCard key={show.id} show={show} />
+                        </div>
+                    ))}
+                </Carousel>
+            </StyledBox>
+        </div>
     )
 }
 
@@ -52,7 +97,10 @@ const MainLanding = (mainProps: mainProps) => {
         <>
             {/* className='mainLanding' */}
             <Box bgcolor={theme.palette.primary.dark} flex={3} p={2}>
-                <Slider />
+                <div style={{maxWidth: '80rem'}}>
+                    <Slider shows={allShowsData} />
+                </div>
+                
 
                 <div className="main">
                     <div className="main-top">
