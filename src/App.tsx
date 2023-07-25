@@ -1,9 +1,7 @@
 
-import { Box, ThemeProvider, styled } from '@mui/material'
+import { Box, styled } from '@mui/material'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
-import LandingPage from './pages/LandingPage.tsx'
-import { theme } from './theme.ts'
 import { useSelector } from 'react-redux'
 import MusicPlayer from "./components/MusicPlayer"
 import { Route, Routes } from 'react-router-dom'
