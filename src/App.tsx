@@ -32,7 +32,7 @@ const PlayerBox = styled(Box)({
 })
 
 function App() {
-  const { activeEpisode } = useSelector((state: any) => state.player)
+  const { activeEpisode, isPlaying } = useSelector((state: any) => state.player)
   const [token, setToken] = useState({})
 
   if(token) {
@@ -53,16 +53,16 @@ function App() {
       <Routes>
         <Route path='/' element={<Login setToken={setToken} />} />
         <Route path='/signup' element={<SignUp />} />
-        {Object.keys(token).length !== 0 ? ( <Route path='/home' element={<HomeLayout token={token} />} />
+        {token ? ( <Route path='/home' element={<HomeLayout token={token} />} />
           ) : ('')
         }
-        {Object.keys(token).length !== 0 ? ( <Route path='/home/show/:id' element={<ShowPage token={token} />} />
+        {token ? ( <Route path='/home/show/:id' element={<ShowPage token={token} />} />
           ) : ('')
         }
       </Routes>
 
       {
-          activeEpisode?.title && (
+          activeEpisode?.title && isPlaying && token && (
           <PlayerBox>
               <MusicPlayer />
           </PlayerBox>
