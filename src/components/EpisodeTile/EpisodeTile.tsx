@@ -1,10 +1,11 @@
 import { Box, Card, CardContent, Checkbox, IconButton, Typography, styled } from "@mui/material"
-import { EPISODE, SEASON, SHOW } from "../../assets/constants"
+import { EPISODE, SEASON, SHOW, TOKEN } from "../../assets/constants"
 import { Favorite, FavoriteBorder, PlayArrow, Share } from "@mui/icons-material"
 import PlayPause from "../PlayPause/PlayPause"
 import { playPause, setActiveEpisode } from "../../redux/features/playerSlice"
 import { useDispatch } from "react-redux"
 import { supabase } from "../../lib/supabaseApi"
+import { useState } from "react"
 
 const MyCard = styled(Card)({
     background: `
@@ -34,10 +35,33 @@ type PROPS = {
     isPlaying: boolean,
     activeEpisode: EPISODE,
     SeasonData: SEASON,
+    token: TOKEN
+}
+
+type FAV = {
+    created_at?: string
+    description: string
+    episode_id: number
+    file: string
+    id?: string
+    season_id: number
+    show_id: number
+    title: string
+    user_id: string
 }
 
 const EpisodeTile = (props: PROPS) => {
-    const { episode, show, isPlaying, activeEpisode, SeasonData, index } = props
+    const { episode, show, isPlaying, activeEpisode, SeasonData, index, token } = props
+    const [fav, setFav] = useState<FAV>({
+        description: episode.description,
+        episode_id: episode.episode,
+        file: episode.file,
+        show_id: show.id,
+        title: episode.title,
+        user_id: token.user.id,
+        season_id: SeasonData.season,
+    })
+    console.log(token)
 
     const dispatch = useDispatch()
 
@@ -54,21 +78,38 @@ const EpisodeTile = (props: PROPS) => {
         dispatch(playPause(true))
     }
 
-    const handleLiked = async () => {
-        const { error } = await supabase
-        .from('favorites')
-        .insert({ 
-            created_at: new Date(),
-            show_id: show.id,
-            season_id: SeasonData.season,
-            episode_id: episode.episode,
-            description: episode.description,
-            file: episode.file,
-            title: episode.title,
-            liked: true,
-        })
-        if(error) throw error
-        console.log('liked ep')
+    const handleLiked = async (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+        if(checked) {
+            const { error } = await supabase
+                .from('favorites')
+                .insert({
+                    description: fav.description,
+                    episode_id: fav.episode_id,
+                    file: fav.file,
+                    show_id: fav.show_id,
+                    title: fav.title,
+                    user_id: fav.user_id,
+                    season_id: fav.season_id,
+                })
+            if(error) throw error
+            console.log('liked ep')
+        } else {
+            console.log('dis liked ep')
+        }
+
+        // const { error } = await supabase
+        // .from('favorites')
+        // .insert({ 
+        //     created_at: new Date(),
+        //     show_id: show.id,
+        //     season_id: SeasonData.season,
+        //     episode_id: episode.episode,
+        //     description: episode.description,
+        //     file: episode.file,
+        //     title: episode.title,
+        //     liked: true,
+        // })
+        // if(error) throw error
     }
 
     return (
@@ -102,8 +143,8 @@ const EpisodeTile = (props: PROPS) => {
                             </IconButton> */}
                         </Box>
                         <Box sx={{pr: 2}}>
-                            <IconButton aria-label="add to favorites" onClick={() => handleLiked()}>
-                                <Checkbox color="success" icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+                            <IconButton aria-label="add to favorites">
+                                <Checkbox color="success" icon={<FavoriteBorder />} checkedIcon={<Favorite />} onChange={(e, checked) => handleLiked(e, checked)} />
                             </IconButton>
                             <IconButton aria-label="share">
                                 <Share />

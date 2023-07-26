@@ -4,7 +4,7 @@ import { theme } from "../theme"
 import { useGetShowInfoQuery } from "../redux/services/netlify"
 import Loader from "../components/Loader/Loader"
 import Error from "../components/Error/Error"
-import { EPISODE, SEASON, SHOW } from "../assets/constants"
+import { EPISODE, SEASON, SHOW, TOKEN } from "../assets/constants"
 import { ArrowBack } from "@mui/icons-material"
 import { useState } from "react"
 import EpisodeTile from "../components/EpisodeTile/EpisodeTile"
@@ -57,7 +57,8 @@ type TabPanelProps = {
     show: SHOW,
     isPlaying: boolean,
     activeEpisode: EPISODE,
-    SeasonData: SEASON
+    SeasonData: SEASON,
+    token: TOKEN
 }
 
 const MainBox = styled(Box)({
@@ -68,11 +69,11 @@ const MainBox = styled(Box)({
 })
 
 type PROPS = {
-    token: {}
+    token: TOKEN
 }
 
 const CustomTabPanel = (props: TabPanelProps) => {
-    const { index, value, episode, show, isPlaying, activeEpisode, SeasonData } = props
+    const { index, value, episode, show, isPlaying, activeEpisode, SeasonData, token } = props
 
     return (
         <>
@@ -82,7 +83,7 @@ const CustomTabPanel = (props: TabPanelProps) => {
                 id={`${index}`}
             >
                 <Box>
-                    {value === index && <EpisodeTile episode={episode} show={show} index={index} isPlaying={isPlaying} activeEpisode={activeEpisode} SeasonData={SeasonData} />}
+                    {value === index && <EpisodeTile episode={episode} show={show} index={index} isPlaying={isPlaying} activeEpisode={activeEpisode} SeasonData={SeasonData} token={token}/>}
                     
                 </Box>
             </div>
@@ -163,6 +164,7 @@ const ShowPage = (props: PROPS) => {
                                             isPlaying={isPlaying}
                                             activeEpisode={activeEpisode}
                                             SeasonData={item}
+                                            token={token}
                                         />
                                     ))}
                                 </Box>

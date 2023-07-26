@@ -10,6 +10,7 @@ import SignUp from './pages/SignUpPage.tsx'
 import HomeLayout from './pages/HomePage.tsx'
 import ShowPage from './pages/ShowPage.tsx'
 import { useEffect, useState } from 'react'
+import { TOKEN } from './assets/constants.ts'
 
 const PlayerBox = styled(Box)({
   position: 'sticky',
@@ -31,7 +32,12 @@ const PlayerBox = styled(Box)({
 
 function App() {
   const { activeEpisode, isPlaying } = useSelector((state: any) => state.player)
-  const [token, setToken] = useState({})
+  const [token, setToken] = useState<TOKEN>({
+    session: {},
+    user: {
+      id: ''
+    }
+  })
 
   if(token) {
     sessionStorage.setItem('token', JSON.stringify(token))

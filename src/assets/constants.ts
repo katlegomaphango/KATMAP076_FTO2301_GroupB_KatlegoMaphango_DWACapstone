@@ -82,3 +82,37 @@ export const MONTHS = [
     'Nov',
     'Dec'
 ]
+
+export type User = {
+  id: string,
+  app_metadata: {
+    provider?: string,
+    [key: string]: any,
+  },
+  user_metadata: {
+    [key: string]: any,
+  },
+  aud: string,
+  confirmation_sent_at?: string,
+  email?: string,
+  created_at: string,
+  confirmed_at?: string,
+  last_sign_in_at?: string,
+  role?: string,
+  updated_at?: string,
+}
+
+export type Session = {
+  provider_token?: string | null,
+  access_token: string,
+  expires_in?: number,
+  expires_at?: number,
+  refresh_token?: string,
+  token_type: string,
+  user: User | null
+}
+
+export type TOKEN = {
+  session: Session,
+  user: User,
+}

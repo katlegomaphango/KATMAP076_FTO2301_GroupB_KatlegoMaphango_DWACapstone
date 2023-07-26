@@ -10,13 +10,16 @@ type PROPS = {
 }
 
 const Favorites = (props: PROPS) => {
+    const {token} = props
     let favData: any = []
+    const userID = "1f9ed4c6-6458-4782-ba2c-4284fc0e97cd"
 
     useEffect(()=>{
         const GetFavorites = async () => {
             const { data, error } = await supabase
             .from('favorites')
             .select()
+            .eq('user_id', userID)
             console.log(data)
             favData = data
         }

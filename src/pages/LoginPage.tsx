@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { supabase } from "../lib/supabaseApi"
+import { TOKEN } from "../assets/constants"
 
 type PROPS = { 
-    setToken: React.Dispatch<React.SetStateAction<{}>> 
+    setToken: React.Dispatch<React.SetStateAction<TOKEN>> 
 }
 
 const Login = (props: PROPS) => {

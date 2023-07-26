@@ -15,6 +15,7 @@ const MainBox = styled(Box)({
 
 const HomeLayout = (props: PROPS) => {
     const {token} = props
+    console.log(token)
 
     return (
         <>
