@@ -32,11 +32,9 @@ const PlayerBox = styled(Box)({
 
 function App() {
   const { activeEpisode, isPlaying } = useSelector((state: any) => state.player)
-  const [token, setToken] = useState<TOKEN>({
-    session: {},
-    user: {
-      id: ''
-    }
+  const [token, setToken] = useState<TOKEN | null>({
+    session: null,
+    user: null
   })
 
   if(token) {
