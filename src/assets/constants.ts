@@ -1,7 +1,5 @@
 
 export type INITIALSTATE = {
-    currentSeasonEpisodes: EPISODE[],
-    currentIndex: number,
     isActive: boolean,
     isPlaying: boolean,
     activeEpisode: EPISODE,
