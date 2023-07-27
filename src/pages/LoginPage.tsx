@@ -4,12 +4,13 @@ import { supabase } from "../lib/supabaseApi"
 import { TOKEN } from "../assets/constants"
 
 type PROPS = { 
-    setToken: React.Dispatch<React.SetStateAction<TOKEN>> 
+    setToken: React.Dispatch<React.SetStateAction<TOKEN | null | any >> 
 }
 
 const Login = (props: PROPS) => {
     const { setToken } = props
     const navigate = useNavigate()
+    const [stateToken, setStateToken] = useState<{} | any>({})
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -34,9 +35,14 @@ const Login = (props: PROPS) => {
         // const {data, error} = await supabase.auth.signInWithOAuth({
         //     provider: 'google'
         // })
+        supabase.auth.onAuthStateChange((event, session) => {
+            if(event !== 'SIGNED_OUT') {
+                setToken(session)
+            }
+        })
 
         if(error) throw error
-        setToken(data)
+        //setToken(data)
         navigate('/home')
     }
 
