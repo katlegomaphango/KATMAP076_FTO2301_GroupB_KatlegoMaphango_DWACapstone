@@ -5,7 +5,9 @@ import PlayPause from "../PlayPause/PlayPause"
 import { playPause, setActiveEpisode } from "../../redux/features/playerSlice"
 import { useDispatch } from "react-redux"
 import { supabase } from "../../lib/supabaseApi"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { AddToLikedEpisodes, removeEpisode } from "../../redux/features/favoriteSlice"
+import { useSelector } from "react-redux"
 
 const MyCard = styled(Card)({
     background: `
@@ -13,7 +15,8 @@ const MyCard = styled(Card)({
             var(--clr-dark-dark),
             var(--clr-dark-gray))
     `,
-    width: 350,
+    maxWidth: 350,
+    minWidth: 300,
     height: 195
 })
 const EpTitle = styled(Typography)({
@@ -35,7 +38,8 @@ type PROPS = {
     isPlaying: boolean,
     activeEpisode: EPISODE,
     SeasonData: SEASON,
-    token: TOKEN
+    token: TOKEN,
+    user: any,
 }
 
 type FAV = {
@@ -51,21 +55,10 @@ type FAV = {
 }
 
 const EpisodeTile = (props: PROPS) => {
-    const { episode, show, isPlaying, activeEpisode, SeasonData, index, token } = props
-    const [fav, setFav] = useState<FAV>({
-        description: episode.description,
-        episode_id: episode.episode,
-        file: episode.file,
-        show_id: show.id,
-        title: episode.title,
-        user_id: token.user.id,
-        season_id: SeasonData.season,
-    })
-    console.log(token)
+    const { episode, show, isPlaying, activeEpisode, SeasonData, index, token, user } = props
+    const { likedEpisodes } = useSelector((state: any) => state.favorite)
 
     const dispatch = useDispatch()
-
-    // const theme = useTheme()
 
     const seasonTxt = episode.episode.toString().length !== 1 ? `S${episode.episode}` : `SO${episode.episode}`
 
@@ -80,36 +73,35 @@ const EpisodeTile = (props: PROPS) => {
 
     const handleLiked = async (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
         if(checked) {
-            const { error } = await supabase
-                .from('favorites')
-                .insert({
-                    description: fav.description,
-                    episode_id: fav.episode_id,
-                    file: fav.file,
-                    show_id: fav.show_id,
-                    title: fav.title,
-                    user_id: fav.user_id,
-                    season_id: fav.season_id,
-                })
-            if(error) throw error
-            console.log('liked ep')
+            const liked: FAV = {
+                description: episode.description,
+                episode_id: episode.episode,
+                file: episode.file,
+                season_id: SeasonData.season,
+                show_id: show.id,
+                title: episode.title,
+                user_id: user.id
+            }
+
+            
+
+            dispatch(AddToLikedEpisodes(liked))
         } else {
-            console.log('dis liked ep')
+            const liked: FAV = {
+                description: episode.description,
+                episode_id: episode.episode,
+                file: episode.file,
+                season_id: SeasonData.season,
+                show_id: show.id,
+                title: episode.title,
+                user_id: user.id
+            }
+            console.log(likedEpisodes.indexOf(liked))
+            const userId = user.id
+            const epId = episode.episode
+            dispatch(removeEpisode({userId, epId, liked}))
         }
 
-        // const { error } = await supabase
-        // .from('favorites')
-        // .insert({ 
-        //     created_at: new Date(),
-        //     show_id: show.id,
-        //     season_id: SeasonData.season,
-        //     episode_id: episode.episode,
-        //     description: episode.description,
-        //     file: episode.file,
-        //     title: episode.title,
-        //     liked: true,
-        // })
-        // if(error) throw error
     }
 
     return (

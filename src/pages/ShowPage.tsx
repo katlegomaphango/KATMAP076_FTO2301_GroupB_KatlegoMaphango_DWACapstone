@@ -4,12 +4,13 @@ import { theme } from "../theme"
 import { useGetShowInfoQuery } from "../redux/services/netlify"
 import Loader from "../components/Loader/Loader"
 import Error from "../components/Error/Error"
-import { EPISODE, SEASON, SHOW, TOKEN } from "../assets/constants"
+import { EPISODE, SEASON, SHOW, TOKEN, User } from "../assets/constants"
 import { ArrowBack } from "@mui/icons-material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import EpisodeTile from "../components/EpisodeTile/EpisodeTile"
 import { useSelector } from "react-redux"
 import Favorites from "../components/Favorites/Favorites"
+import { supabase } from "../lib/supabaseApi"
 
 const ShowHeader = styled(Paper)({
     height: '20rem',
@@ -58,7 +59,8 @@ type TabPanelProps = {
     isPlaying: boolean,
     activeEpisode: EPISODE,
     SeasonData: SEASON,
-    token: TOKEN
+    token: TOKEN,
+    user: any
 }
 
 const MainBox = styled(Box)({
@@ -69,11 +71,11 @@ const MainBox = styled(Box)({
 })
 
 type PROPS = {
-    token: TOKEN
+    token: TOKEN,
 }
 
 const CustomTabPanel = (props: TabPanelProps) => {
-    const { index, value, episode, show, isPlaying, activeEpisode, SeasonData, token } = props
+    const { index, value, episode, show, isPlaying, activeEpisode, SeasonData, token, user } = props
 
     return (
         <>
@@ -83,7 +85,7 @@ const CustomTabPanel = (props: TabPanelProps) => {
                 id={`${index}`}
             >
                 <Box>
-                    {value === index && <EpisodeTile episode={episode} show={show} index={index} isPlaying={isPlaying} activeEpisode={activeEpisode} SeasonData={SeasonData} token={token}/>}
+                    {value === index && <EpisodeTile episode={episode} show={show} index={index} isPlaying={isPlaying} activeEpisode={activeEpisode} SeasonData={SeasonData} token={token} user={user} />}
                     
                 </Box>
             </div>
@@ -92,8 +94,17 @@ const CustomTabPanel = (props: TabPanelProps) => {
 }
 
 const ShowPage = (props: PROPS) => {
+    useEffect(() => {
+        supabase.auth.onAuthStateChange((event, session) => {
+            if(event !== 'SIGNED_OUT') {
+                setUser(session?.user)
+            }
+        })
+    }, [])
+
     const { token } = props
     const [tabValue, setTabValue] = useState(0)
+    const [user, setUser] = useState<User | any>(token.user)
     const navigate = useNavigate()
     const { id } = useParams()
     const { data, isFetching, error} = useGetShowInfoQuery(id)
@@ -109,6 +120,8 @@ const ShowPage = (props: PROPS) => {
     const handleTabChange = (e: any, newValue: number) => {
         setTabValue(newValue)
     }
+
+
 
     console.log(ShowData)
 
@@ -165,6 +178,7 @@ const ShowPage = (props: PROPS) => {
                                             activeEpisode={activeEpisode}
                                             SeasonData={item}
                                             token={token}
+                                            user={user}
                                         />
                                     ))}
                                 </Box>
@@ -174,7 +188,7 @@ const ShowPage = (props: PROPS) => {
                 </Box>
                 
             </Box>
-            <Favorites token={token} />
+            <Favorites data={ShowData} token={token} />
         </MainBox>
     )
 }

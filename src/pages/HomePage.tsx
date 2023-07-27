@@ -1,9 +1,10 @@
 import { Box, styled } from "@mui/material"
 import HomeContent from "./LandingPage"
 import Favorites from "../components/Favorites/Favorites"
+import { TOKEN } from "../assets/constants"
 
 type PROPS = {
-    token: {}
+    token: TOKEN
 }
 
 const MainBox = styled(Box)({
