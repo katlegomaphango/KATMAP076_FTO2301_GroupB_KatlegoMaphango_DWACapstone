@@ -41,16 +41,6 @@ const Navbar = (props: PROPS) => {
         if(error) throw error
         sessionStorage.removeItem('token')
         navigate('/')
-
-
-        // supabase.auth.onAuthStateChange((event, session) => {
-        //     if(event === 'SIGNED_OUT') {
-        //         setStateToken({})
-        //     } else {
-        //         setStateToken(session)
-        //     }
-        //     console.log(event, session)
-        // })
     }
 
 
