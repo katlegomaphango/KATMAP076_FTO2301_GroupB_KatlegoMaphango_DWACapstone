@@ -6,7 +6,6 @@ import { Login, Logout } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabaseApi'
 import { useState } from 'react'
-import { TOKEN } from '../../assets/constants'
 
 const LogoText = styled(Typography)({
     fontSize: '1.5rem',
