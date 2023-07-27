@@ -1,8 +1,8 @@
 
 
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { nextEpisode, playPause, prevEpisode } from "../../redux/features/playerSlice";
+import { useState } from "react";
+import { playPause } from "../../redux/features/playerSlice";
 import { Box, styled } from "@mui/material";
 import Controls from "./Controls";
 import Player from "./Player";
@@ -25,45 +25,17 @@ const InnerBox = styled(Box)({
 })
 
 const MusicPlayer = () => {
-    const { activeEpisode, currentSeasonEpisodes, currentIndex, isActive, isPlaying } = useSelector((state: any) => state.player)
+    const { activeEpisode, isActive, isPlaying } = useSelector((state: any) => state.player)
     const dispatch = useDispatch()
 
     const [duration, setDuration] = useState(0)
     const [appTime, setAppTime] = useState(0)
-    const [seekTime, setSeekTime] = useState(0)
-    const [volume, setVolume] = useState(0.3)
-
-    useEffect(() => {
-        if (currentSeasonEpisodes.length)  dispatch(playPause(true))
-    }, [currentIndex])
-
-    const handlePrevEpisode = () => {
-        dispatch(playPause(false)) 
-
-        if (currentIndex === 0) {
-            dispatch(prevEpisode(currentSeasonEpisodes.length - 1))
-        } else 
-        {
-            dispatch(prevEpisode(currentIndex - 1))
-        }
-    }
 
     const handlePlayPause = () => {
         if (!isActive) return
 
         if (isPlaying) dispatch(playPause(false))
         if (!isPlaying) dispatch(playPause(true))
-    }
-
-    const handleNextEpisode = () => {
-        dispatch(playPause(false)) 
-
-        if(currentIndex === currentSeasonEpisodes.length - 1) {
-            dispatch(nextEpisode(0))
-        }
-        else {
-            dispatch(nextEpisode(currentIndex + 1))
-        }
     }
 
     const handleOnloadedData = (event: React.SyntheticEvent<HTMLAudioElement, Event>) => {
@@ -82,28 +54,20 @@ const MusicPlayer = () => {
                 <Track activeEpisode={activeEpisode} />
                 <InnerBox>
                     <Controls
-                        currentSeasonEpisodes={currentSeasonEpisodes}
-                        handleNextEpisode={handleNextEpisode}
                         handlePlayPause={handlePlayPause}
-                        handlePrevEpisode={handlePrevEpisode}
                         isPlaying={isPlaying}
                     />
                     <Seekbar 
-                        appTime={appTime}
+                        onInput={handleOnloadedData}
                         max={duration}
                         min={0}
-                        onInput={(event: any) => setSeekTime(event.target.value)}
-                        setSeekTime={setSeekTime}
                         value={appTime}
                     />
                     <Player
                         activeEpisode={activeEpisode}
                         isPlaying={isPlaying}
-                        onEnded={handleNextEpisode}
                         onLoadedData={(event: React.SyntheticEvent<HTMLAudioElement, Event>) => handleOnloadedData(event)}
                         onTimeUpdate={(event: React.SyntheticEvent<HTMLAudioElement, Event>) => handleOnTimeUpdate(event)}
-                        seekTime={seekTime}
-                        volume={volume}
                     />
                 </InnerBox>
             </StyledBox>

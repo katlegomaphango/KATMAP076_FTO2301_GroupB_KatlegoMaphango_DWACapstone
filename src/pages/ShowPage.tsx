@@ -4,7 +4,7 @@ import { theme } from "../theme"
 import { useGetShowInfoQuery } from "../redux/services/netlify"
 import Loader from "../components/Loader/Loader"
 import Error from "../components/Error/Error"
-import { EPISODE, SEASON, SHOW, TOKEN, User } from "../assets/constants"
+import { EPISODE, SEASON, SHOW, User } from "../assets/constants"
 import { ArrowBack } from "@mui/icons-material"
 import { useEffect, useState } from "react"
 import EpisodeTile from "../components/EpisodeTile/EpisodeTile"
@@ -69,10 +69,6 @@ const MainBox = styled(Box)({
     margin: 20,
 })
 
-type PROPS = {
-    token: TOKEN,
-}
-
 const CustomTabPanel = (props: TabPanelProps) => {
     const { index, value, episode, showTitle, isPlaying, activeEpisode, isliked, user } = props
 
@@ -91,9 +87,8 @@ const CustomTabPanel = (props: TabPanelProps) => {
     )
 }
 
-const ShowPage = (props: PROPS) => {
+const ShowPage = () => {
     const { token } = useSelector((state: any) => state.token)
-    const { likedEp } = useSelector((state: any) => state.favorite)
 
     useEffect(() => {
         supabase.auth.onAuthStateChange((event, session) => {
@@ -118,7 +113,7 @@ const ShowPage = (props: PROPS) => {
     const ShowData: SHOW = data
     const SeasonsData: SEASON[] = ShowData.seasons
 
-    const handleTabChange = (e: any, newValue: number) => {
+    const handleTabChange = (_e: any, newValue: number) => {
         setTabValue(newValue)
     }
 

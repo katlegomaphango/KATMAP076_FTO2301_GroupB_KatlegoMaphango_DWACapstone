@@ -7,56 +7,52 @@ import { Favorite } from '@mui/icons-material'
 import { useDispatch } from 'react-redux'
 import { SetAllLikedEpisodes } from '../../redux/features/favoriteSlice'
 import { useSelector } from 'react-redux'
-import { SHOW, TOKEN, User } from '../../assets/constants'
+import { User } from '../../assets/constants'
 import EpisodeTile from '../EpisodeTile/EpisodeTile'
-import { useGetShowInfoQuery } from '../../redux/services/netlify'
-import { useFetcher } from 'react-router-dom'
 
-type PROPS = {
-    token: TOKEN
-    data?: SHOW
-}
-
-const Favorites = (props: PROPS) => {
-    const {token, data} = props
+const Favorites = () => {
+    const { token } = useSelector((state: any) => state.token)
+    console.log(token)
     const [user, setUser] = useState<User | any>(token.user)
+    const dispatch = useDispatch()
     useEffect(() => {
         supabase.auth.onAuthStateChange((event, session) => {
             if(event !== 'SIGNED_OUT') {
                 setUser(session?.user)
             }
         })
-    }, [user])
-
-    
-    let favData: any = []
-    const { likedEpisodes } = useSelector((state: any) => state.favorite)
-    const { activeEpisode, isPlaying } = useSelector((state: any) => state.player)
-    const dispatch = useDispatch()
-    
-    
-    // useEffect(() => {
-    //     let { data, isFetching, error} = useGetShowInfoQuery(showID)
-    //     data = data
-    // }, [showID])
-    // const id: string | undefined = undefined
-    // const userID = "1f9ed4c6-6458-4782-ba2c-4284fc0e97cd"
-
-    useEffect(()=>{
-        const GetFavorites = async () => {
-            const { data, error } = await supabase
-            .from('favorites')
-            .select()
-            .eq('user_id', user.id)
-            dispatch(SetAllLikedEpisodes(data ? data : []))
-            console.log(data)
-            favData = data
-        }
-        GetFavorites()
-    },[])
+    }, [])
 
     console.log(user)
-    console.log(data)
+    //let favData: any = []
+    const { likedEpisodes, isliked } = useSelector((state: any) => state.favorite)
+    const { activeEpisode, isPlaying } = useSelector((state: any) => state.player)
+    //const dispatch = useDispatch()
+    
+
+
+    useEffect(()=>{        
+        const fetchFavs =async () => {
+            const { data, error } = await supabase
+                .from('favorites')
+                .select('description, episode_id, file, title, showTitle')
+                .eq('user_id', user.id)
+            if(error) throw error
+            dispatch(SetAllLikedEpisodes(data.map((item) => ({
+                showTitle: item.showTitle, 
+                episode: {
+                    file: item.file,
+                    description: item.description,
+                    episode: item.episode_id,
+                    title: item.title
+                }
+            }))))
+        }
+        fetchFavs()
+    },[likedEpisodes.length])
+
+    console.log(user)
+    console.log(likedEpisodes)
 
     return (
         <>
@@ -66,26 +62,21 @@ const Favorites = (props: PROPS) => {
                     <Box sx={{display: 'flex', alignItems: 'center', fontSize: 25}}>
                         Favorites <Favorite color='secondary' sx={{ml: 1}} />
                     </Box>
-                    {!data && likedEpisodes.length === 0 ? (
+                    {likedEpisodes.length === 0 ? (
                             <h1>No favorites</h1>
                         ) : (
                             <>
-                                {likedEpisodes.map((item: any, i: number) => {
-                                        console.log(data)
-                                        const SeasonData=data.seasons[item.season_id-1]
-                                        const episode=data.seasons[item.season_id-1].episodes[item.episode_id-1]
-
+                                {likedEpisodes.map((item: any) => {
+                                    console.log(item)
                                         return (
                                             <EpisodeTile 
-                                                token={token} 
-                                                SeasonData={SeasonData} 
                                                 activeEpisode={activeEpisode} 
-                                                episode={episode} 
-                                                index={i} 
+                                                episode={item.episode} 
                                                 isPlaying={isPlaying} 
-                                                show={data}
-                                                user={user}
+                                                showTitle={item.showTitle}
                                                 key={item.id}
+                                                isliked={isliked}
+                                                user={user}
                                             />
                                         )
                                 })}

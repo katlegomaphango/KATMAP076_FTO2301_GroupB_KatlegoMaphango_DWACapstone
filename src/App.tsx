@@ -9,8 +9,7 @@ import Login from './pages/LoginPage.tsx'
 import SignUp from './pages/SignUpPage.tsx'
 import HomeLayout from './pages/HomePage.tsx'
 import ShowPage from './pages/ShowPage.tsx'
-import { useEffect, useState } from 'react'
-import { TOKEN } from './assets/constants.ts'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setToken } from './redux/features/tokenSlice.ts'
 
@@ -36,10 +35,6 @@ function App() {
   const { activeEpisode, isPlaying } = useSelector((state: any) => state.player)
   const { token } = useSelector((state: any) => state.token)
   const dispatch = useDispatch()
-  // const [Token, setToken] = useState<TOKEN | null>({
-  //   session: null,
-  //   user: null
-  // })
 
   if(token) {
     sessionStorage.setItem('token', JSON.stringify(token))
@@ -62,7 +57,7 @@ function App() {
         {token ? ( <Route path='/home' element={<HomeLayout />} />
           ) : ('')
         }
-        {token ? ( <Route path='/home/show/:id' element={<ShowPage token={token} />} />
+        {token ? ( <Route path='/home/show/:id' element={<ShowPage />} />
           ) : ('')
         }
       </Routes>

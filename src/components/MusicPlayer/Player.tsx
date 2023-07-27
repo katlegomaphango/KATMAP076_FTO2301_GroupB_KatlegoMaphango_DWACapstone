@@ -1,17 +1,15 @@
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import { EPISODE } from "../../assets/constants"
 
 type PROPS = { 
     activeEpisode: EPISODE, 
-    isPlaying: boolean, 
-    volume: number, 
-    seekTime: number, 
+    isPlaying: boolean,  
     onTimeUpdate: React.ReactEventHandler<HTMLAudioElement> | undefined, 
     onLoadedData: React.ReactEventHandler<HTMLAudioElement> | undefined, 
 }
 
 const Player = (props: PROPS) => {
-    const { activeEpisode, isPlaying, volume, seekTime, onTimeUpdate, onLoadedData } = props
+    const { activeEpisode, isPlaying, onTimeUpdate, onLoadedData } = props
 
     const ref = useRef<HTMLAudioElement>(null)
 
@@ -22,16 +20,6 @@ const Player = (props: PROPS) => {
             ref.current.pause()
         }
     }
-
-    useEffect(() => {
-        if (!ref.current) return
-        ref.current.volume = volume
-    }, [volume])
-
-    useEffect(() => {
-        if (!ref.current) return
-        ref.current.currentTime = seekTime
-    }, [seekTime])
 
     return (
         <>

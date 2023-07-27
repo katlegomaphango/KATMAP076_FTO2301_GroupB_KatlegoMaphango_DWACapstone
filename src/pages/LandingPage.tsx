@@ -3,25 +3,9 @@ import Loader from '../components/Loader/Loader'
 import Error from '../components/Error/Error'
 import { useGetAllShowsQuery } from '../redux/services/netlify'
 import MainLanding from '../components/MainLanding/MainLanding'
-import Favorites from '../components/Favorites/Favorites'
-import { Box, Stack, styled } from '@mui/material'
-import { Route, Routes } from 'react-router-dom'
-import ShowPage from './ShowPage'
-import Navbar from '../components/Navbar/Navbar'
+import { Box } from '@mui/material'
 
-type PROPS = {
-    token: {}
-}
-
-const MainBox = styled(Box)({
-    display: 'grid',
-    gridTemplateColumns: '68% 30%',
-    gap: '2%',
-    margin: 20,
-})
-
-const HomeContent = (props: PROPS) => {
-    const { token } = props
+const HomeContent = () => {
     const { data, isFetching, error } = useGetAllShowsQuery([])
 
     if (isFetching) return <Loader />

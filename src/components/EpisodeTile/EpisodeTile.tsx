@@ -1,12 +1,12 @@
 import { Box, Card, CardContent, Checkbox, IconButton, Typography, styled } from "@mui/material"
-import { EPISODE, SEASON, SHOW, TOKEN } from "../../assets/constants"
-import { Favorite, FavoriteBorder, PlayArrow, Share } from "@mui/icons-material"
+import { EPISODE, User } from "../../assets/constants"
+import { Favorite, FavoriteBorder, Share } from "@mui/icons-material"
 import PlayPause from "../PlayPause/PlayPause"
 import { playPause, setActiveEpisode } from "../../redux/features/playerSlice"
 import { useDispatch } from "react-redux"
 import { supabase } from "../../lib/supabaseApi"
-import { useEffect, useState } from "react"
-import { AddToLikedEpisodes, removeEpisode } from "../../redux/features/favoriteSlice"
+import { useEffect } from "react"
+import { AddToLikedEpisodes, likeDislike, removeEpisode } from "../../redux/features/favoriteSlice"
 import { useSelector } from "react-redux"
 
 const MyCard = styled(Card)({
@@ -33,30 +33,21 @@ const ShowName = styled(Typography)({
 
 type PROPS = { 
     episode: EPISODE,
-    show: SHOW,
-    index: number,
+    showTitle: string,
     isPlaying: boolean,
     activeEpisode: EPISODE,
-    SeasonData: SEASON,
-    token: TOKEN,
-    user: any,
-}
-
-type FAV = {
-    created_at?: string
-    description: string
-    episode_id: number
-    file: string
-    id?: string
-    season_id: number
-    show_id: number
-    title: string
-    user_id: string
+    user: User,
+    isliked: boolean
 }
 
 const EpisodeTile = (props: PROPS) => {
-    const { episode, show, isPlaying, activeEpisode, SeasonData, index, token, user } = props
-    const { likedEpisodes } = useSelector((state: any) => state.favorite)
+    const { episode, showTitle, isPlaying, activeEpisode, isliked, user } = props
+    const { likedEpisodes, likedEp } = useSelector((state: any) => state.favorite)
+
+    useEffect(() => {
+        console.log(likedEpisodes.includes({episode, showTitle}))
+        console.log(episode, showTitle)
+    }, [])
 
     const dispatch = useDispatch()
 
@@ -67,41 +58,39 @@ const EpisodeTile = (props: PROPS) => {
     }
 
     const handlePlayClick = () => {
-        dispatch(setActiveEpisode({ episode, SeasonData, index}))
+        dispatch(setActiveEpisode(episode))
         dispatch(playPause(true))
     }
 
-    const handleLiked = async (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    const handleLiked = async (_event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
         if(checked) {
-            const liked: FAV = {
-                description: episode.description,
+            const {data, error}: { data: any, error: any } = await supabase
+            .from('favorites')
+            .insert({ 
+                created_at: new Date(), 
+                description: episode.episode,
                 episode_id: episode.episode,
                 file: episode.file,
-                season_id: SeasonData.season,
-                show_id: show.id,
+                showTitle,
                 title: episode.title,
                 user_id: user.id
-            }
+            })
 
-            
+            if(error) throw error
+            console.log(data)
 
-            dispatch(AddToLikedEpisodes(liked))
+            dispatch(AddToLikedEpisodes({episode, showTitle}))
+            dispatch(likeDislike(true))
         } else {
-            const liked: FAV = {
-                description: episode.description,
-                episode_id: episode.episode,
-                file: episode.file,
-                season_id: SeasonData.season,
-                show_id: show.id,
-                title: episode.title,
-                user_id: user.id
-            }
-            console.log(likedEpisodes.indexOf(liked))
-            const userId = user.id
-            const epId = episode.episode
-            dispatch(removeEpisode({userId, epId, liked}))
+            const { error } = await supabase
+            .from('favorites')
+            .delete()
+            .eq('title', episode.title)
+            if(error) throw error
+            console.log(likedEpisodes.includes({episode, showTitle}))
+            dispatch(likeDislike(true))
+            dispatch(removeEpisode({episode, showTitle}))
         }
-
     }
 
     return (
@@ -113,7 +102,7 @@ const EpisodeTile = (props: PROPS) => {
                             {episode.title}
                         </EpTitle>
                         <ShowName variant="subtitle1" color='text.secondary'>
-                            {show.title}
+                            {showTitle}
                         </ShowName>
                         <Typography variant="subtitle1" color='text.secondary' component='div'>
                             {seasonTxt} | {`EP${episode.episode}`}
@@ -136,7 +125,7 @@ const EpisodeTile = (props: PROPS) => {
                         </Box>
                         <Box sx={{pr: 2}}>
                             <IconButton aria-label="add to favorites">
-                                <Checkbox color="success" icon={<FavoriteBorder />} checkedIcon={<Favorite />} onChange={(e, checked) => handleLiked(e, checked)} />
+                                <Checkbox color="success" icon={<FavoriteBorder />} checked={isliked && likedEp.title === episode.title } checkedIcon={<Favorite />} onChange={(e, checked) => handleLiked(e, checked)} />
                             </IconButton>
                             <IconButton aria-label="share">
                                 <Share />

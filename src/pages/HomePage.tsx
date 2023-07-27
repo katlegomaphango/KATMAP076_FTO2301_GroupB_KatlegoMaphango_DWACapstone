@@ -1,11 +1,7 @@
 import { Box, styled } from "@mui/material"
 import HomeContent from "./LandingPage"
 import Favorites from "../components/Favorites/Favorites"
-import { TOKEN } from "../assets/constants"
 
-type PROPS = {
-    token: TOKEN
-}
 
 const MainBox = styled(Box)({
     display: 'grid',
@@ -14,14 +10,13 @@ const MainBox = styled(Box)({
     margin: 20,
 })
 
-const HomeLayout = (props: PROPS) => {
-    const {token} = props
+const HomeLayout = () => {
 
     return (
         <>
             <MainBox>
-                <HomeContent token={token} />
-                <Favorites token={token} />
+                <HomeContent />
+                <Favorites />
             </MainBox>
         </>
     )
