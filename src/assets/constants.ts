@@ -113,6 +113,6 @@ export type Session = {
 }
 
 export type TOKEN = {
-  session: Session,
-  user: User,
+  session: Session | null,
+  user: User | null,
 }
