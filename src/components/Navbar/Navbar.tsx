@@ -40,6 +40,7 @@ const Navbar = (props: PROPS) => {
         const { error } = await supabase.auth.signOut()
         if(error) throw error
         sessionStorage.removeItem('token')
+        setStateToken({})
         navigate('/')
     }
 
