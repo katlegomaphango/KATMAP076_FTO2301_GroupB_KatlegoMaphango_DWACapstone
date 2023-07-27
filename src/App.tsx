@@ -11,6 +11,8 @@ import HomeLayout from './pages/HomePage.tsx'
 import ShowPage from './pages/ShowPage.tsx'
 import { useEffect, useState } from 'react'
 import { TOKEN } from './assets/constants.ts'
+import { useDispatch } from 'react-redux'
+import { setToken } from './redux/features/tokenSlice.ts'
 
 const PlayerBox = styled(Box)({
   position: 'sticky',
@@ -32,10 +34,12 @@ const PlayerBox = styled(Box)({
 
 function App() {
   const { activeEpisode, isPlaying } = useSelector((state: any) => state.player)
-  const [token, setToken] = useState<TOKEN | null>({
-    session: null,
-    user: null
-  })
+  const { token } = useSelector((state: any) => state.token)
+  const dispatch = useDispatch()
+  // const [Token, setToken] = useState<TOKEN | null>({
+  //   session: null,
+  //   user: null
+  // })
 
   if(token) {
     sessionStorage.setItem('token', JSON.stringify(token))
@@ -43,8 +47,8 @@ function App() {
 
   useEffect(() => {
     if(sessionStorage.getItem('token')) {
-      const data = JSON.parse(sessionStorage.getItem('token'))
-      setToken(data)
+      const data = JSON.parse(sessionStorage.getItem('token') || '')
+      dispatch(setToken(data))
     }
   }, [])
 
@@ -53,9 +57,9 @@ function App() {
       <Navbar token={token} />
 
       <Routes>
-        <Route path='/' element={<Login setToken={setToken} />} />
+        <Route path='/' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
-        {token ? ( <Route path='/home' element={<HomeLayout token={token} />} />
+        {token ? ( <Route path='/home' element={<HomeLayout />} />
           ) : ('')
         }
         {token ? ( <Route path='/home/show/:id' element={<ShowPage token={token} />} />
@@ -64,7 +68,7 @@ function App() {
       </Routes>
 
       {
-          activeEpisode?.title && isPlaying && token && (
+          activeEpisode?.title && isPlaying && (
           <PlayerBox>
               <MusicPlayer />
           </PlayerBox>
