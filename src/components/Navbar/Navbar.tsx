@@ -4,6 +4,9 @@ import { AppBar, Avatar, Button, Toolbar, Typography, styled } from '@mui/materi
 import { theme } from '../../theme'
 import { Login, Logout } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
+import { supabase } from '../../lib/supabaseApi'
+import { useState } from 'react'
+import { TOKEN } from '../../assets/constants'
 
 const LogoText = styled(Typography)({
     fontSize: '1.5rem',
@@ -30,12 +33,27 @@ type PROPS = {
 
 const Navbar = (props: PROPS) => {
     const { token } = props
+    const [stateToken, setStateToken] = useState<{} | any>(token)
     const navigate = useNavigate()
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        const { error } = await supabase.auth.signOut()
+        if(error) throw error
         sessionStorage.removeItem('token')
         navigate('/')
+
+
+        // supabase.auth.onAuthStateChange((event, session) => {
+        //     if(event === 'SIGNED_OUT') {
+        //         setStateToken({})
+        //     } else {
+        //         setStateToken(session)
+        //     }
+        //     console.log(event, session)
+        // })
     }
+
+
 
     return (
         <>
@@ -48,7 +66,7 @@ const Navbar = (props: PROPS) => {
                         </LogoText>
                     </Toolbar>
                     {
-                        Object.keys(token).length === 0 ? (
+                        Object.keys(stateToken).length === 0 ? (
                             <LoginButton variant="outlined" onClick={() => {navigate('/')}}>
                                 <Login />
                                 <Typography ml={1} sx={{display: {xs: 'none', sm: 'block'}}}>Login</Typography>
