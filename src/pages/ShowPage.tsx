@@ -163,8 +163,8 @@ const ShowPage = (props: PROPS) => {
                                 ))}
                             </Tabs>
                         </Box>
-                        <Box sx={{backgroundColor: 'red', display: 'flex', flexWrap: 'wrap', 
-                    gap: 2, pt: 2, pb: 2}}>
+                        <Box sx={{display: 'flex', flexWrap: 'wrap', 
+                    gap: 2, pt: 2, pb: 2, justifyContent: 'center'}}>
                             {SeasonsData.map((item) => (
                                 <Box key={item.season} >
                                     {item.episodes.map((se, i) => (
