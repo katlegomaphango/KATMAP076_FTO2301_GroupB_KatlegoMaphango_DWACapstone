@@ -27,8 +27,7 @@ const SignUp = () => {
         })
 
         if(error) throw error
-        if(data) console.log(data)
-        alert('check email for err link')
+        alert('check email for confirmation link')
     }
 
 

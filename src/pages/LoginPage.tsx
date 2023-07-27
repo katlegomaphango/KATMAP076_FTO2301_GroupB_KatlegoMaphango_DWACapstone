@@ -38,7 +38,6 @@ const Login = (props: PROPS) => {
         // })
 
         if(error) throw error
-        console.log(data)
         setToken(data)
         navigate('/home')
     }
