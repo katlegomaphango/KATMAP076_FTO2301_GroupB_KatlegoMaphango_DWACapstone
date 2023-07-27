@@ -55,12 +55,11 @@ type TabPanelProps = {
     index: number,
     value: number,
     episode: EPISODE,
-    show: SHOW,
+    showTitle: string,
     isPlaying: boolean,
     activeEpisode: EPISODE,
-    SeasonData: SEASON,
-    token: TOKEN,
-    user: any
+    isliked: boolean,
+    user: User
 }
 
 const MainBox = styled(Box)({
@@ -75,7 +74,7 @@ type PROPS = {
 }
 
 const CustomTabPanel = (props: TabPanelProps) => {
-    const { index, value, episode, show, isPlaying, activeEpisode, SeasonData, token, user } = props
+    const { index, value, episode, showTitle, isPlaying, activeEpisode, isliked, user } = props
 
     return (
         <>
@@ -85,8 +84,7 @@ const CustomTabPanel = (props: TabPanelProps) => {
                 id={`${index}`}
             >
                 <Box>
-                    {value === index && <EpisodeTile episode={episode} show={show} index={index} isPlaying={isPlaying} activeEpisode={activeEpisode} SeasonData={SeasonData} token={token} user={user} />}
-                    
+                    {value === index && <EpisodeTile episode={episode} showTitle={showTitle} isPlaying={isPlaying} activeEpisode={activeEpisode} isliked={isliked} user={user} />}
                 </Box>
             </div>
         </>
@@ -94,6 +92,9 @@ const CustomTabPanel = (props: TabPanelProps) => {
 }
 
 const ShowPage = (props: PROPS) => {
+    const { token } = useSelector((state: any) => state.token)
+    const { likedEp } = useSelector((state: any) => state.favorite)
+
     useEffect(() => {
         supabase.auth.onAuthStateChange((event, session) => {
             if(event !== 'SIGNED_OUT') {
@@ -102,7 +103,6 @@ const ShowPage = (props: PROPS) => {
         })
     }, [])
 
-    const { token } = props
     const [tabValue, setTabValue] = useState(0)
     const [user, setUser] = useState<User | any>(token.user)
     const navigate = useNavigate()
@@ -110,6 +110,7 @@ const ShowPage = (props: PROPS) => {
     const { data, isFetching, error} = useGetShowInfoQuery(id)
 
     const { activeEpisode, isPlaying } = useSelector((state: any) => state.player)
+    const { isliked } = useSelector((state: any) => state.favorite)
 
     if (isFetching) return <Loader />
     if (error) return <Error />
@@ -121,9 +122,7 @@ const ShowPage = (props: PROPS) => {
         setTabValue(newValue)
     }
 
-
-
-    console.log(ShowData)
+    console.log(user)
 
     return (
         <MainBox>
@@ -173,11 +172,10 @@ const ShowPage = (props: PROPS) => {
                                             key={se.episode}
                                             index={i}
                                             episode={se}
-                                            show={ShowData}
+                                            showTitle={ShowData.title}
                                             isPlaying={isPlaying}
                                             activeEpisode={activeEpisode}
-                                            SeasonData={item}
-                                            token={token}
+                                            isliked={isliked}
                                             user={user}
                                         />
                                     ))}
@@ -188,7 +186,7 @@ const ShowPage = (props: PROPS) => {
                 </Box>
                 
             </Box>
-            <Favorites data={ShowData} token={token} />
+            <Favorites />
         </MainBox>
     )
 }
