@@ -103,9 +103,23 @@ const MainLanding = (mainProps: mainProps) => {
     const [allShowsData, setAllShowsData] = useState(allShows)
 
     const handleSortEvent = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log(event.target.value)
+        const sortby = event.target.value
 
-
+        if(sortby === 'A-Z') {
+            const sorted = [...allShowsData].sort((a, b) => a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1 )
+            setAllShowsData(sorted)
+        } else if(sortby === 'Z-A') {
+            const sorted = [...allShowsData].sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1 )
+            setAllShowsData(sorted)
+        } else if (sortby === 'new') {
+            const sorted = [...allShowsData].sort((a, b) => Date.parse(b.updated) - Date.parse(a.updated) )
+            setAllShowsData(sorted)
+        } else if (sortby === 'old') {
+            const sorted = [...allShowsData].sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated) )
+            setAllShowsData(sorted)
+        } else {
+            setAllShowsData([...allShows])
+        }
     }
 
     return (
@@ -114,7 +128,6 @@ const MainLanding = (mainProps: mainProps) => {
                 <div>
                     <Slider shows={allShowsData} />
                 </div>
-                
 
                 <div className="main">
                     <div className="main-top">
