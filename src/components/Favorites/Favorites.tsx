@@ -18,20 +18,22 @@ type PROPS = {
 }
 
 const Favorites = (props: PROPS) => {
+    const {token, data} = props
+    const [user, setUser] = useState<User | any>(token.user)
     useEffect(() => {
         supabase.auth.onAuthStateChange((event, session) => {
             if(event !== 'SIGNED_OUT') {
                 setUser(session?.user)
             }
         })
-    }, [])
+    }, [user])
 
-    const {token, data} = props
+    
     let favData: any = []
     const { likedEpisodes } = useSelector((state: any) => state.favorite)
     const { activeEpisode, isPlaying } = useSelector((state: any) => state.player)
     const dispatch = useDispatch()
-    const [user, setUser] = useState<User | any>(token.user)
+    
     
     // useEffect(() => {
     //     let { data, isFetching, error} = useGetShowInfoQuery(showID)
