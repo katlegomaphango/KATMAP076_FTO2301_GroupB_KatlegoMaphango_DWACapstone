@@ -13,7 +13,7 @@ import Favorites from "../components/Favorites/Favorites"
 import { supabase } from "../lib/supabaseApi"
 
 const ShowHeader = styled(Paper)({
-    height: '20rem',
+    // height: '20rem',
     background: `
         linear-gradient(-135deg, 
             var(--clr-dark-dark),
@@ -35,7 +35,7 @@ const ShowBody = styled(Paper)({
 })
 
 const ImageBox = styled(Box)({
-    width: '19.8rem',
+    maxWidth: '19.8rem',
 })
 
 const ShowTitle = styled(Typography)({
@@ -48,6 +48,7 @@ const ShowTitle = styled(Typography)({
 })
 
 const ShowDesc = styled(Typography)({
+    maxHeight: '12rem',
     overflow: 'hidden',
 })
 
@@ -120,10 +121,10 @@ const ShowPage = () => {
     console.log(user)
 
     return (
-        <MainBox>
+        <MainBox sx={{display: {xs: 'block', sm: 'block', md: 'grid'}}}>
             <Box bgcolor={theme.palette.primary.dark}>
                 <Box>
-                    <ShowHeader variant="outlined" square >
+                    <ShowHeader variant="outlined" square sx={{flexDirection: {xs: 'column', sm: 'row'}}} >
                         <ImageBox>
                             <img width={'100%'} src={ShowData.image} alt="" />
                         </ImageBox>

@@ -26,7 +26,7 @@ const TrackDetails = styled(Paper)({
     linear-gradient(-135deg, 
         var(--clr-dark-dark),
         var(--clr-dark-gray))
-`,
+    `,
 })
 
 const Track = (props: PROPS) => {
@@ -35,11 +35,9 @@ const Track = (props: PROPS) => {
     return (
         <>
             <TrackBox>
-                <Box sx={{width: '60%'}}>
-                    <TrackDetails color="secondary">
-                        {activeEpisode?.title ? activeEpisode?.title : 'No active episode'}
-                    </TrackDetails>
-                </Box>
+                <TrackDetails color="secondary">
+                    {activeEpisode?.title ? activeEpisode?.title : 'No active episode'}
+                </TrackDetails>
             </TrackBox>
         </>
     )

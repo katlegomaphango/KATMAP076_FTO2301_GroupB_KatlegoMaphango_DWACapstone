@@ -14,7 +14,8 @@ const HomeLayout = () => {
 
     return (
         <>
-            <MainBox>
+            <button>fav</button>
+            <MainBox sx={{display: {xs: 'block', sm: 'block', md: 'grid'}}}>
                 <HomeContent />
                 <Favorites />
             </MainBox>

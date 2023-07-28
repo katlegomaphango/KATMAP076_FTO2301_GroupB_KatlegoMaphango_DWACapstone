@@ -55,9 +55,10 @@ const Favorites = () => {
     console.log(likedEpisodes)
 
     return (
-        <>
+        <Box>
+            
             <Box bgcolor={theme.palette.primary.dark}
-                    sx={{display: {xs: 'none', sm: 'block'}, p: 2}}>
+                    sx={{ p: 2}}>
                 <Box sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
                     <Box sx={{display: 'flex', alignItems: 'center', fontSize: 25}}>
                         Favorites <Favorite color='secondary' sx={{ml: 1}} />
@@ -86,7 +87,7 @@ const Favorites = () => {
                 </Box>
                 
             </Box>
-        </>
+        </Box>
     )
 }
 

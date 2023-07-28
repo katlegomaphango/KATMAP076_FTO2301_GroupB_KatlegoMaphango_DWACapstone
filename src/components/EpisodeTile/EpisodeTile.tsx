@@ -15,8 +15,8 @@ const MyCard = styled(Card)({
             var(--clr-dark-dark),
             var(--clr-dark-gray))
     `,
-    maxWidth: 350,
-    minWidth: 300,
+    maxWidth: 300,
+    minWidth: 200,
     height: 195
 })
 const EpTitle = styled(Typography)({
@@ -95,7 +95,7 @@ const EpisodeTile = (props: PROPS) => {
 
     return (
         <>
-            <MyCard>
+            <MyCard sx={{maxWidth: {xs: 300, sm: 350}}}>
                 <Box>
                     <CardContent sx={{flex: '1 0 auto'}}>
                         <EpTitle variant="h5">

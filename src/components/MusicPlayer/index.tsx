@@ -14,14 +14,14 @@ const StyledBox = styled(Box)({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
 })
 const InnerBox = styled(Box)({
     display: 'flex',
     flex: '1',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
 })
 
 const MusicPlayer = () => {
@@ -50,9 +50,9 @@ const MusicPlayer = () => {
 
     return (
         <>
-            <StyledBox sx={{ px: { xs: 12, sm: 8}}} >
+            <StyledBox sx={{ px: { xs: 2, sm: 8}}} >
                 <Track activeEpisode={activeEpisode} />
-                <InnerBox>
+                <InnerBox sx={{alignItems: {xs: 'flex-end', sm: 'center'}}}>
                     <Controls
                         handlePlayPause={handlePlayPause}
                         isPlaying={isPlaying}

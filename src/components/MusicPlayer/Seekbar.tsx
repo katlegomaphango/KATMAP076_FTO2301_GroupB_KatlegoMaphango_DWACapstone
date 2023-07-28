@@ -10,7 +10,6 @@ type PROPS = {
 const StyledSeekbar = styled(Box)({
     flexDirection: 'row',
     alignItems: 'center',
-    background: 'pink'
 }) 
 
 const Seekbar = (props: PROPS) => {

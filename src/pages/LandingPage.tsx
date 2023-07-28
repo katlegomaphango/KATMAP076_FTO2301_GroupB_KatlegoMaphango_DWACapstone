@@ -21,18 +21,4 @@ const HomeContent = () => {
     )
 }
 
-{/* <ThemeProvider theme={theme}>
-        <Box>
-          <Navbar />
-          <LandingPage />
-          {
-            activeEpisode?.title && (
-              <PlayerBox>
-                <MusicPlayer />
-              </PlayerBox>
-            )
-          }
-        </Box>
-      </ThemeProvider> */}
-
 export default HomeContent
