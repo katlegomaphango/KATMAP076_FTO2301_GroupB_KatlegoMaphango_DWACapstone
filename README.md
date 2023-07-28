@@ -1,4 +1,16 @@
-# mock-podcast-ts.3
+# KATMAP076_FTO2301_GroupB_KatlegoMaphango_DWACapstone
+
+# Plug and Play Podcast: Podcast API
+
+## Technologies Used
+- React
+- Redux (Redux-toolkit)
+- Supabase
+- Material UI
+
+## Language: TypeScript
+
+
 
 # User Stories
 There is a total of 50 possible stories below that determine your final grade.
