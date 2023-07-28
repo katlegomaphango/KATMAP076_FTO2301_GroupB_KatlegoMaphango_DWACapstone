@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { supabase } from "../lib/supabaseApi"
-import { TOKEN, User } from "../assets/constants"
+import { User } from "../assets/constants"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { setToken } from "../redux/features/tokenSlice"
 import { SetAllLikedEpisodes } from "../redux/features/favoriteSlice"
-import { Box, Button, TextField, Typography, styled } from "@mui/material"
+import { Box, Button, Typography, styled } from "@mui/material"
 import {theme} from '../theme'
 
 const StyledBox = styled(Box)({
