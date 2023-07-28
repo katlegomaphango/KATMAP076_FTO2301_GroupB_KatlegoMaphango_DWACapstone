@@ -28,3 +28,5 @@ npm install
 npm run dev
 ```
 Click on the ``` http://localhost ``` link in your terminal after successful startup to see the running app in your browser. Note: This project uses Vite as the build tool, which provides a fast development server and optimized builds.al mark.
+
+Alternatively check the live site: [Plug 'n Play](https://plug-n-play-pod.netlify.app/) Podcast
