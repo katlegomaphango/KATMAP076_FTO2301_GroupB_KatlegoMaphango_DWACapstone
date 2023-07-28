@@ -1,4 +1,3 @@
-import './Navbar.css'
 import logo from '../../assets/meta/logo.png'
 import { AppBar, Avatar, Button, Toolbar, Typography, styled } from '@mui/material'
 import { theme } from '../../theme'

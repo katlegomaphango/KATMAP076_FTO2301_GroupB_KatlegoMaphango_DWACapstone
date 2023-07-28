@@ -68,6 +68,7 @@ const MainBox = styled(Box)({
     gridTemplateColumns: '68% 30%',
     gap: '2%',
     margin: 20,
+    borderRadius: 5
 })
 
 const CustomTabPanel = (props: TabPanelProps) => {
@@ -122,7 +123,7 @@ const ShowPage = () => {
 
     return (
         <MainBox sx={{display: {xs: 'block', sm: 'block', md: 'grid'}}}>
-            <Box bgcolor={theme.palette.primary.dark}>
+            <Box bgcolor={theme.palette.primary.dark} borderRadius={5}>
                 <Box>
                     <ShowHeader variant="outlined" square sx={{flexDirection: {xs: 'column', sm: 'row'}}} >
                         <ImageBox>

@@ -53,17 +53,17 @@ const Slider = (props: {shows: PREVIEW[]}) => {
 
     const responsive = {
         desktop: {
-            breakpoint: { max: 3000, min: 1024 },
+            breakpoint: { max: 3000, min: 780 },
             items: 3,
             slidesToSlide: 3
         },
         tablet: {
-            breakpoint: { max: 1024, min: 768 },
+            breakpoint: { max: 769, min: 427 },
             items: 2,
             slidesToSlide: 2
         },
         mobile: {
-            breakpoint: { max: 767, min: 464 },
+            breakpoint: { max: 426, min: 0 },
             items: 1,
             slidesToSlide: 1
         }
@@ -79,7 +79,7 @@ const Slider = (props: {shows: PREVIEW[]}) => {
                     showDots={true}
                     infinite={true}
                     autoPlay={true}
-                    partialVisbile={false}
+                    partialVisbile={true}
                     dotListClass="custom-dot-list-style"
                 >
                     {shows.slice(0,5).map((show) => (
@@ -124,7 +124,7 @@ const MainLanding = (mainProps: mainProps) => {
 
     return (
         <>
-            <Box bgcolor={theme.palette.primary.dark} p={4}>
+            <Box bgcolor={theme.palette.primary.dark} p={4} borderRadius={2}>
                 <div>
                     <Slider shows={allShowsData} />
                 </div>

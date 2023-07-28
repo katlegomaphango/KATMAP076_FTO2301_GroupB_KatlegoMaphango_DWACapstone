@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import './Favorites.css'
 import { theme } from '../../theme'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabaseApi'
@@ -58,7 +57,7 @@ const Favorites = () => {
         <Box>
             
             <Box bgcolor={theme.palette.primary.dark}
-                    sx={{ p: 2}}>
+                    sx={{ p: 2}} borderRadius={2}>
                 <Box sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
                     <Box sx={{display: 'flex', alignItems: 'center', fontSize: 25}}>
                         Favorites <Favorite color='secondary' sx={{ml: 1}} />
