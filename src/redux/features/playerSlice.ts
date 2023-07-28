@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { EPISODE, INITIALSTATE, SEASON, SHOW } from "../../assets/constants";
+import { EPISODE, INITIALSTATE } from "../../assets/constants";
 
 const initialState: INITIALSTATE = {
     isActive: false,
