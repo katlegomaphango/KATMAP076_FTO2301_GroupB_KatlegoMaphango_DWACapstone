@@ -1,11 +1,8 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { supabase } from "../lib/supabaseApi"
-import { User } from "../assets/constants"
-import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { setToken } from "../redux/features/tokenSlice"
-import { SetAllLikedEpisodes } from "../redux/features/favoriteSlice"
 import { Box, Button, Typography, styled } from "@mui/material"
 import {theme} from '../theme'
 
@@ -27,8 +24,6 @@ const MainBox = styled(Box)({
 })
 
 const Login = () => {
-    const { token } = useSelector((state: any) => state.token)
-    const [user, setUser] = useState<User | any>(token.user)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [formData, setFormData] = useState({
@@ -54,38 +49,9 @@ const Login = () => {
         })
 
         if(error) throw error
-        setToken(data)
-        setUser(data.user)
-
-        supabase.auth.onAuthStateChange((event, session) => {
-            if(event !== 'SIGNED_OUT') {
-                setUser(session?.user)
-                dispatch(setToken(session))
-            }
-        })
-
-
-        if (user.id !== null) fetchData(user.id)
+        dispatch(setToken(data))
 
         navigate('/home')
-    }
-
-    const fetchData = async (userId: string) => {
-        const { data, error } = await supabase
-        .from('favorites')
-        .select('description, episode_id, file, title, showTitle')
-        .eq('user_id', userId)
-        if(error) throw error
-        dispatch(SetAllLikedEpisodes(data.map((item) => ({
-            showTitle: item.showTitle, 
-            episode: {
-                file: item.file,
-                description: item.description,
-                episode: item.episode_id,
-                title: item.title
-            }
-        }))))
-        console.log(data)
     }
 
     return (
