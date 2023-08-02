@@ -37,30 +37,31 @@ function App() {
   const { token } = useSelector((state: any) => state.token)
   const dispatch = useDispatch()
 
-  if(token) {
+  if(token.user !== null) {
     sessionStorage.setItem('token', JSON.stringify(token))
   }
 
   useEffect(() => {
-    if(sessionStorage.getItem('token')) {
+    if(sessionStorage.getItem('token') !== null) {
       const data = JSON.parse(sessionStorage.getItem('token') || '')
+      console.log(data)
       dispatch(setToken(data))
     }
   }, [])
 
   return (
     <>
-      <Navbar token={token} />
+      <Navbar />
 
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/error' element={<Error />} />
-        {token ? ( <Route path='/home' element={<HomeLayout />} />
-          ) : ('')
+        {token.user !== null ? ( <Route path='/home' element={<HomeLayout />} />
+          ) : (<Route path='*' element={<Login />} />)
         }
-        {token ? ( <Route path='/home/show/:id' element={<ShowPage />} />
-          ) : ('')
+        {token.user !== null ? ( <Route path='/home/show/:id' element={<ShowPage />} />
+          ) : (<Route path='*' element={<Login />} />)
         }
       </Routes>
 
