@@ -12,6 +12,7 @@ import ShowPage from './pages/ShowPage.tsx'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setToken } from './redux/features/tokenSlice.ts'
+import Error from './components/Error/Error.tsx'
 
 const PlayerBox = styled(Box)({
   position: 'sticky',
@@ -54,6 +55,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route path='/error' element={<Error />} />
         {token ? ( <Route path='/home' element={<HomeLayout />} />
           ) : ('')
         }
