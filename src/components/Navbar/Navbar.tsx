@@ -4,8 +4,9 @@ import { theme } from '../../theme'
 import { Login, Logout } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabaseApi'
-import { useState } from 'react'
-import { TOKEN } from '../../assets/constants'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { removeToken } from '../../redux/features/tokenSlice'
 
 const LogoText = styled(Typography)({
     fontSize: '1.5rem',
@@ -26,24 +27,18 @@ const AppToolbar = styled(Toolbar)({
     justifyContent: 'space-between'
 })
 
-type PROPS = {
-    token: TOKEN | null
-}
-
-const Navbar = (props: PROPS) => {
-    const { token } = props
-    const [stateToken, setStateToken] = useState<{} | any>(token)
+const Navbar = () => {
+    const { token } = useSelector((state: any) => state.token)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const handleLogout = async () => {
         const { error } = await supabase.auth.signOut()
         if(error) throw error
         sessionStorage.removeItem('token')
-        setStateToken({})
+        dispatch(removeToken())
         navigate('/')
     }
-
-
 
     return (
         <>
@@ -56,7 +51,7 @@ const Navbar = (props: PROPS) => {
                         </LogoText>
                     </Toolbar>
                     {
-                        Object.keys(stateToken).length === 0 ? (
+                        token.user === null ? (
                             <LoginButton variant="outlined" onClick={() => {navigate('/')}}>
                                 <Login />
                                 <Typography ml={1} sx={{display: {xs: 'none', sm: 'block'}}}>Login</Typography>
