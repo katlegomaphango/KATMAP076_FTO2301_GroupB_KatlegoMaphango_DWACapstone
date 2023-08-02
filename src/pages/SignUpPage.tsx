@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { supabase } from "../lib/supabaseApi"
 import { Box, Button, Typography, styled } from "@mui/material"
 import {theme} from '../theme'
@@ -26,7 +26,10 @@ const SignUp = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
+        name: '',
+        surname: '',
     })
+    const navigate = useNavigate()
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => {
@@ -43,18 +46,47 @@ const SignUp = () => {
         const {error} = await supabase.auth.signUp({
             email: formData.email,
             password: formData.password,
+            options: {
+                data: {
+                    name: formData.name,
+                    surname: formData.surname,
+                }
+            }
         })
 
-        if(error) throw error
+        if(error) {
+            navigate('/error')
+        }
         alert('check email for confirmation link')
+        navigate('/')
     }
+
+    console.log(formData)
 
 
     return (
-        <MainBox>
+        <MainBox sx={{marginTop: {xs: 8, sm: 10}}}>
             <Typography variant="h3" sx={{fontWeight: 'bold'}} >Sign Up</Typography>
             <StyledBox>
                 <form onSubmit={(e) => handleSignUp(e)} >
+                    <div style={{marginBottom: 20}}>
+                        <input 
+                            type="text" 
+                            placeholder='name'
+                            name='name'
+                            onChange={handleChange}
+                            style={{background: 'transparent', border: '1px solid', borderColor: theme.palette.primary.contrastText, borderRadius: '0.3rem', padding: '1rem', fontSize: '1rem', color: "white"}}
+                        />
+                    </div>
+                    <div style={{marginBottom: 20}}>
+                        <input 
+                            type="text" 
+                            placeholder='surname'
+                            name='surname'
+                            onChange={handleChange}
+                            style={{background: 'transparent', border: '1px solid', borderColor: theme.palette.primary.contrastText, borderRadius: '0.3rem', padding: '1rem', fontSize: '1rem', color: "white"}}
+                        />
+                    </div>
                     <div style={{marginBottom: 20}}>
                         <input 
                             type="email" 
