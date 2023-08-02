@@ -79,7 +79,6 @@ const Slider = (props: {shows: PREVIEW[]}) => {
                     showDots={true}
                     infinite={true}
                     autoPlay={true}
-                    partialVisbile={true}
                     dotListClass="custom-dot-list-style"
                 >
                     {shows.slice(0,5).map((show) => (
