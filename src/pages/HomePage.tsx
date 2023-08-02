@@ -1,6 +1,10 @@
 import { Box, styled } from "@mui/material"
-import HomeContent from "./LandingPage"
 import Favorites from "../components/Favorites/Favorites"
+import { useGetAllShowsQuery } from "../redux/services/netlify"
+import Loader from "../components/Loader/Loader"
+import Error from "../components/Error/Error"
+import { PREVIEW } from "../assets/constants"
+import MainLanding from "../components/MainLanding/MainLanding"
 
 
 const MainBox = styled(Box)({
@@ -11,11 +15,16 @@ const MainBox = styled(Box)({
 })
 
 const HomeLayout = () => {
+    const { data, isFetching, error } = useGetAllShowsQuery([])
+
+    if (isFetching) return <Loader />
+    if (error) return <Error />
+    const allShows: PREVIEW[] = data
 
     return (
         <>
             <MainBox sx={{display: {xs: 'block', sm: 'block', md: 'grid'}}}>
-                <HomeContent />
+                <MainLanding allShows={allShows}/>
                 <Favorites />
             </MainBox>
         </>
