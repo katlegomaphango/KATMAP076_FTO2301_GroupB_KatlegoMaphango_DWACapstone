@@ -39,3 +39,10 @@ Alternatively check the live site: [Plug 'n Play](https://plug-n-play-pod.netlif
 - [ ]  All metatag information has been creataed and added via https://metatags.io/ (You are welcome to use any free image you find on https://unsplash.com/). Be mindful to manually replace all URL values (especially image URL) to absolute Netlify URL values (you will need to deploy to Netlify first)
 
 ***
+- [x] All show data loaded via a ```fetch``` call from the ```https://podcast-api.netlify.app/shows```
+- [x] All data is loaded a ```fetch``` and no endpoint-specific data is hardcoded
+- [x] When viewing a specific show data is loaded via ```fetch``` from individual show endpoint
+- [x] There is a loading state while initial data is being loaded
+- [x] There is a loading state while new data is being loaded
+
+***
