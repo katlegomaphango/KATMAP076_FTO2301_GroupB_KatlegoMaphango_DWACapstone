@@ -1,5 +1,3 @@
-# KATMAP076_FTO2301_GroupB_KatlegoMaphango_DWACapstone
-
 # Plug and Play Podcast: [Podcast API](https://github.com/schalkventer/example-podcast-api)
 
 ## Technologies Used
